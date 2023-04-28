@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Welcome</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<!-- UIkit CSS -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/uikit@3.8.1/dist/css/uikit.min.css" />
+
+<!-- UIkit JS -->
+<script
+	src="https://cdn.jsdelivr.net/npm/uikit@3.8.1/dist/js/uikit.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/uikit@3.8.1/dist/js/uikit-icons.min.js"></script>
+
+
+</head>
+<body>
+
+	<div th:replace="uk/fragments/header :: header">
+		<h1> THIS IS A DEFAULT HEADER</h1>
+	</div>
+
+	<form th:action="@{/uk/addPoney}"
+         th:object="${poneyForm}" method="POST">
+		<fieldset class="uk-fieldset">
+			<legend class="uk-legend">Add your Poney ! </legend>
+
+			<div class="uk-margin">
+				<label class="uk-form-label" for="form-name">Name</label>
+				<div class="uk-form-controls">
+					<input class="uk-input" id="form-name" type="text"
+						placeholder="Poney name..." th:field="*{name}">
+				</div>
+			</div>
+			
+			<div class="uk-margin">
+				<label class="uk-form-label" for="form-color">Color</label>
+				<div class="uk-form-controls">
+					<input class="uk-input" id="form-color" type="text"
+						placeholder="Poney main color..." th:field="*{color}">
+				</div>
+				<label class="uk-form-label" for="form-superPower">Power</label>
+				<div class="uk-form-controls">
+					<input class="uk-input" id="form-superPower" type="text"
+						placeholder="Poney super power..." th:field="*{superPower}">
+				</div>
+				<label class="uk-form-label" for="form-imgUrl">Image URL</label>
+				<div class="uk-form-controls">
+					<input class="uk-input" id="form-imgUrl" type="text"
+						placeholder="Poney super power..." th:field="*{imgUrl}">
+				</div>
+			</div>
+			<div class="uk-margin">
+				<input type="submit"  class="uk-button uk-button-default" value="Create" />
+			</div>
+
+		</fieldset>
+	</form>
+
+	<div class="uk-margin uk-padding">
+
+		<div class="uk-child-width-expand@s uk-text-center" uk-grid>
+			<div th:each="poney : ${poneyList}">
+				<div class="uk-card uk-card-default">
+					<div class="uk-card-media-top">
+						<img th:src="${poney.imgUrl}" alt="">
+					</div>
+					<div class="uk-card-body">
+						<h3 class="uk-card-title" th:utext="${poney.name}">...</h3>
+						<div th:style="'background-color:'+${poney.color}">
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+								sed do eiusmod tempor incididunt.</p>
+						</div>
+						<h5 th:text="'Color:  '+${poney.color}">...</h5>
+						<h5 th:text="'SuperPower:  '+${poney.superPower}">...</h5>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+
+</html>
