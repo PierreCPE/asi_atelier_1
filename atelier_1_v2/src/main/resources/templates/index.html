@@ -1,0 +1,36 @@
+  <!DOCTYPE HTML>
+  <html xmlns:th="http://www.thymeleaf.org">
+  <head>
+  <meta charset="UTF-8" />
+  <title>Bienvenue !</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+  </head>
+  <body>	
+  	<div th:replace="fragments/header :: header">
+  		<h1> THIS IS A DEFAULT HEADER</h1>
+  	</div>
+  	<h1>Bienvenue !</h1>
+  	<div>
+  		<img class="uk-comment-avatar" src="/img/lego-builder.png" width="80"
+  			height="80" alt="">
+  		
+  		<ul>
+  			<li><a href="#">Accueil</a></li>
+  		</ul>
+  	</div>
+  	<div>
+  		<p th:utext="${messageLocal}">...</p>
+  	</div>
+  	<div>
+  		<ul>
+  			<li><a href="/view"><img src="/img/lego-jack.jpg" width="100"
+  					alt="">Affichage d'une carte</a></li>
+  			<li><a href="/addCard"><img src="/img/lego-cup.jpg" width="100"
+  					alt="">Ajout de carte</a></li>
+  			<li><a href="/list"><img src="/img/lego-hero.jpg" width="100"
+  					alt="">Liste des cartes</a></li>
+  		</ul>
+  	</div>
+  </body>
+  </html>

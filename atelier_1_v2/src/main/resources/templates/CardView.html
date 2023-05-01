@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Welcome</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<div th:replace="fragments/header :: header">
+		<h1> THIS IS A DEFAULT HEADER</h1>
+	</div>
+	<h2>
+		<a href="http://localhost:8082/#" th:utext="Accueil">...</a>
+	</h2> 
+	<div>
+	
+		<h3 th:text="'Family:  '+${myCard.family}">...</h3>
+		<h4 th:utext="${myCard.name}">...</h4>
+		
+		<img th:src="${myCard.imgUrl}" alt="">
+	
+			<p>
+				<h5 th:utext="${myCard.description}">...</h5>
+			</p>	
+		<h5 th:text="'Affinity:  '+${myCard.affinity}">...</h5>
+		<p>Statistiques</p>
+			<table>
+			  <tr>
+			    <td th:utext="${myCard.hp}">HP<img th:src="img/coeur.jpg" alt="" width="100"></td>
+			    <td th:utext="${myCard.energy}">ENERGY<img th:src="/img/energy.jpg" alt=""></td>
+			  </tr>
+			  <tr>
+			    <td th:utext="${myCard.attack}">ATTACK<img src="/img/attack.jpg" alt=""></td>
+			    <td th:utext="${myCard.defence}">DEFENCE<img src="img/defence.jpg" alt=""></td>
+			  </tr>
+			</table>
+		
+	</div>
+</body>
+</html>

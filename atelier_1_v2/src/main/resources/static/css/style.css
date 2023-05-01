@@ -1,0 +1,74 @@
+/* Définition des styles pour le corps de la page */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Styles pour le bandeau de navigation */
+  nav {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav li {
+    display: inline-block;
+    margin-right: 20px;
+  }
+  
+  nav a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  /* Styles pour le titre de la page */
+  header h1 {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+ /* Styles pour le titre de la section principale */
+main h2 {
+    font-size: 24px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  /* Styles pour la section principale */
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 50px;
+    margin-left: 50px;
+    height: calc(100vh - 250px); /* Hauteur égale à la hauteur de la fenêtre moins la hauteur de la section de navigation et des deux titres */
+  }
+  
+  main p {
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: left;
+  }
+  
+  /* Styles pour le pied de page */
+  footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+  }
+
+.formulaire {
+  display: flex;
+  justify-content: center;
+  padding: 50px;
+}

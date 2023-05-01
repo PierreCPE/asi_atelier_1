@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Welcome</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+</head>
+<body>
+		<div th:replace="fragments/header :: header">
+		<h1> THIS IS A DEFAULT HEADER</h1>
+	</div>
+	<h4>
+		<a href="http://localhost:8082/#" th:utext="Accueil">...</a>
+	</h4> 
+	<form th:action="@{/addCard}"
+         th:object="${cardForm}" method="POST">
+		<fieldset >
+			<legend >Add your Card ! </legend>
+			<div >
+				<label for="form-name">Name</label>
+				<div >
+					<input id="form-name" type="text"
+						placeholder="Card name..." th:field="*{name}">
+				</div>
+			</div>
+			<div >
+				<label  for="form-desc">Description</label>
+				<div >
+					<input  id="form-desc" type="text"
+						placeholder="Description de la carte" th:field="*{description}">
+				</div>
+
+				<label  for="form-imgUrl">Image URL</label>
+				<div >
+					<input  id="form-imgUrl" type="text"
+						placeholder="ici l'image ou le gif de la carte'..." th:field="*{imgUrl}">
+				</div>
+				<label  for="form-family">Family</label>
+				<div >
+					<input id="form-family" type="text"
+						placeholder="Famille de la carte" th:field="*{family}">
+				</div>
+				<label  for="form-affinite">Affinité :</label>
+				<div >
+					<select th:field="*{affinity}" name="affinity" id="affinity-select">
+					    <option value="">--Please choose an option--</option>
+					    <option value="fire">Fire</option>
+					    <option value="water">Water</option>
+					    <option value="flying">Flying</option>
+					    <option value="plant">Plant</option>
+					    <option value="electrik">Electrik</option>
+					</select>
+				</div>
+				
+				<label  for="form-stats">Statistiques :</label>
+					<div>
+					  <input type="range" id="hp" name="hp"
+					         min="0" max="50" value="25" step="5" th:field="*{hp}">
+					  <label for="hp">HP</label>
+					</div>
+					
+					<div>
+					  <input type="range" id="energy" name="energy" 
+					         min="0" max="50" value="25" step="5" th:field="*{energy}">
+					  <label for="energy">Energy</label>
+						
+					</div>
+					
+					<div>
+					  <input type="range" id="attack" name="attack" 
+					         min="0" max="50" value="25" step="5" th:field="*{attack}">
+					  <label for="attack">Attack</label>
+					</div>
+					
+					<div>
+					  <input type="range" id="defence" name="defence" 
+					         min="0" max="50" value="25" step="5" th:field="*{defence}">
+					  <label for="defence">Defence</label>
+					</div>
+			</div>
+			<div >
+				<input type="submit"  class="uk-button uk-button-default" value="Create" />
+			</div>
+
+		</fieldset>
+	</form>
+
+</body>
+
+</html>
