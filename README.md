@@ -9,8 +9,6 @@ l’IHM :
 En s’aidant des APIs mises à votre disposition, nous allons creer un formulaire de saisie d’information pour la création d’une nouvelle carte, ainsi qu’une page d’affichage d’une carte en Web Statique + Web Service (existant). 
 
 
-
-CHAT GPT :
 L'approche Web statique + Web service et l'approche Web dynamique sont deux approches de développement Web qui présentent des avantages et des inconvénients.
 
 L'approche Web statique + Web service consiste à créer des pages Web statiques qui sont ensuite appelées par un Web service pour fournir des données dynamiques. Cette approche présente plusieurs avantages :
