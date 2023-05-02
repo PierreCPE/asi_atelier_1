@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Récupération du formulaire et du champ d'id de carte
-    const form = document.querySelector("form");
-    const cardIdInput = document.getElementById("card-id");
+    const form = document.getElementById("search");
+    const cardIdInput = document.getElementById("search-card-id");
   
     // Fonction appelée lors de la soumission du formulaire
     const handleFormSubmit = (event) => {
@@ -41,3 +41,37 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", handleFormSubmit);
   });
   
+
+function getFormData(form) {
+  const formData = new FormData(form);
+  const data = {};
+  for (let [key, value] of formData.entries()) {
+    data[key] = value;
+  }
+  return data;
+}
+  
+
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("add");
+
+    // Fonction appelée lors de la soumission du formulaire
+    const handleFormSubmit = (event) => {
+      event.preventDefault(); // Empêche le rechargement de la page
+      const formData = getFormData(form);
+      fetch('http://vps.cpe-sn.fr:8083/card', {
+        method: 'POST',
+        headers: {
+          'accept': '*/*',
+          'Content-Type': 'application/json'
+        },
+        // body: '{\n  "name": "string",\n  "description": "string",\n  "family": "string",\n  "affinity": "string",\n  "imgUrl": "string",\n  "smallImgUrl": "string",\n  "id": 0,\n  "energy": 0,\n  "hp": 0,\n  "defence": 0,\n  "attack": 0,\n  "price": 0,\n  "userId": 0\n}',
+        body: formData
+        });
+
+  };
+
+   // Ajout d'un écouteur d'événement sur la soumission du formulaire
+
+}
+);
