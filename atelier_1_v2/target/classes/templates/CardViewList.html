@@ -14,7 +14,7 @@
     		<h4>
   			<a href="http://localhost:8082/#" th:utext="Accueil">...</a>
   			</h4> 
-  		<li th:each="Card : ${cardList}">
+  		<li th:each="card : ${cardList}">
  	<div>
 	
 		<h3 th:text="'Family:  '+${card.family}">...</h3>
@@ -32,17 +32,17 @@
 		<p>Statistiques</p>
 			<table>
 			  <tr>
-			    <td th:utext="${card.hp}">HP<img src="/img/coeur.jpg" width="10"alt=""></td>
-			    <td th:utext="${card.energy}">ENERGY<img src="/img/energy.jpg" width="10"alt=""></td>
+			    <td th:utext="${card.hp}">HP<img src="../static/img/coeur.jpg" width="10"alt=""></td>
+			    <td th:utext="${card.energy}">ENERGY<img src="../static/img/energy.jpg" width="10"alt=""></td>
 			  </tr>
 			  <tr>
-			    <td th:utext="${card.attack}">ATTACK<img src="/img/attack.jpg" width="10"alt=""></td>
-			    <td th:utext="${card.defence}">DEFENCE<img src="/img/defence.jpg" width="10"alt=""></td>
+			    <td th:utext="${card.attack}">ATTACK<img src="../static/img/attack.jpg" width="10"alt=""></td>
+			    <td th:utext="${card.defence}">DEFENCE<img src="../static/img/defence.jpg" width="10"alt=""></td>
 			  </tr>
 			</table>
 		
 	</div>
-  		<li>
+  		</li>
   	</ul>
   </body>
   </html>
