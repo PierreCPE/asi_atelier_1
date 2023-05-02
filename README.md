@@ -24,6 +24,7 @@ Inconvénients :
 La gestion de la sécurité est plus complexe, car le back-end doit être accessible depuis Internet.
 Les interactions utilisateur en temps réel peuvent être difficiles à gérer.
 Les mises à jour du contenu nécessitent des appels supplémentaires au Web service, ce qui peut ralentir le site.
+
 L'approche Web dynamique consiste à créer des pages Web dynamiques qui sont générées à la volée par un serveur Web en fonction des données en temps réel. Cette approche présente également des avantages et des inconvénients.
 
 Avantages :
