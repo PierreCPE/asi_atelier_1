@@ -55,6 +55,7 @@ Nous allons réalisé les fonctionnalités suivantes :
 Dans un premier temps nous aurons une authentification sommaire sans utiliser Springboot Security.
 
 Schéma de notre architecture de site web : 
-
-![Schéma atelier 2](Images/asi_atelier_2_schema_site.png)
+<p align="center">
+  <img src="Images/asi_atelier_2_schema_site.png" width="350" title="hover text">
+</p>
 
