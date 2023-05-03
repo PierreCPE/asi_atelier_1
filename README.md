@@ -1,5 +1,6 @@
 **Author**: Thomas Gabriel,Matéo Pain, Adrien Chausson, Pierre Gosson, All rights reserved
-# Atelier 1 : Création d’un projet de jeu de plateau sur une application web
+# Projet ASI, site de combat, d'achat et de vente de cartes. 
+## Atelier 1 : Création d’un projet de jeu de plateau sur une application web : Mise en place de la création de carte d'affichage et de retour aléatoire de carte.
 
 Nous sommes en phase de création d’un projet de jeu de plateau sur une application web. En tant que
 responsable projet de cette application nous souhaitons explorer deux méthodes pour représenter
@@ -37,3 +38,19 @@ Inconvénients :
 Le coût de développement est souvent plus élevé, car il faut développer à la fois le front-end et le back-end.
 Les performances peuvent être moins bonnes si le serveur Web doit générer des pages Web dynamiques pour chaque requête.
 En fin de compte, le choix entre une approche Web statique + Web service et une approche Web dynamique dépend des besoins spécifiques du projet. Il est important d'évaluer les avantages et les inconvénients de chaque approche et de choisir celle qui convient le mieux.
+
+
+
+## Atelier 2 : Mise en place de la connexion utilisateur, achat et vente de carte.
+
+Après analyse de nos premiers prototypes nous allons partir sur une architecture Web Javascript + Web Services Full Rest.
+La prochaine étape est de bâtir une plateforme d’achat/vente de cartes.
+> Après inscription des utilisateurs, ces derniers recevront aléatoirement 5 cartes de jeu.
+> Après s’être connectés, les utilisateurs pourront acheter ou vendre des cartes.
+
+Nous allons réalisé les fonctionnalités suivantes :
+* Création d’utilisateur et connexion
+* Achat/vente de cartes sur la plateforme
+
+Dans un premier temps nous aurons une authentification sommaire sans utiliser Springboot Security.
+
