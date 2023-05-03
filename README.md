@@ -54,3 +54,8 @@ Nous allons réalisé les fonctionnalités suivantes :
 
 Dans un premier temps nous aurons une authentification sommaire sans utiliser Springboot Security.
 
+Schéma de notre architecture de site web : 
+<p align="center">
+  <img src="Images/ASI_atelier2.drawio.png" width="700" title="Schéma site web">
+</p>
+
