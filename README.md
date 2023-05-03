@@ -56,6 +56,6 @@ Dans un premier temps nous aurons une authentification sommaire sans utiliser Sp
 
 Schéma de notre architecture de site web : 
 <p align="center">
-  <img src="Images/asi_atelier_2_schema_site.png" width="700" title="hover text">
+  <img src="Images/ASI_atelier2.drawio.png" width="700" title="Schéma site web">
 </p>
 
