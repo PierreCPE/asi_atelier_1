@@ -56,5 +56,5 @@ Dans un premier temps nous aurons une authentification sommaire sans utiliser Sp
 
 Schéma de notre architecture de site web : 
 
-[image](Images/asi_atelier_2_schema_site.png)
+![Schéma atelier 2](Images/asi_atelier_2_schema_site.png)
 
