@@ -1,7 +1,14 @@
 package com.sp.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Transaction {
-	private int id;
+	@Id
+	@GeneratedValue
+	private Integer id;
 	private int iduser1;
 	private int iduser2;
 	private int price;
@@ -9,8 +16,8 @@ public class Transaction {
 	public Transaction() {
 	}
 
-	public Transaction( int id, int iduser1, int iduser2, int price) {
-		this.id=id;
+	public Transaction( int iduser1, int iduser2, int price) {
+		super();
 		this.iduser1 = iduser1;
 		this.iduser2 = iduser2;
 		this.price = price;
