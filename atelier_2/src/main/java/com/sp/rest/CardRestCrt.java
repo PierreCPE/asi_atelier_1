@@ -9,23 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sp.model.Card;
 import com.sp.service.CardService;
+import com.sp.service.InventoryService;
 
 
 @RestController
 public class CardRestCrt {
     @Autowired
-    CardService cService;
-    
-    @RequestMapping(method=RequestMethod.GET,value={"/","/index"})
-	public String index(Model model) {
-		model.addAttribute("messageLocal", messageLocal);
-		return "index";
-	}
-	
-    @RequestMapping(method=RequestMethod.GET,value="/card/{id}")
-	public Card getCard(@PathVariable String id) {
-    	Card c = cService.getCard(Integer.valueOf(id));
-		return c;
-	}
+    InventoryService iservice;
 
 }
