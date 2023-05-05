@@ -6,7 +6,7 @@ import com.sp.model.User;
 
 
 @Service
-public class LoginService {
+public class LoginService { // voir le site pour rendre en json le cookie
 	
 
 	public User getUser(int id) {
