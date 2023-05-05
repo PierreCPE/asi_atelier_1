@@ -16,7 +16,8 @@ public class TransactionService {
 	@Autowired
 	UserService uservice;
 	@Autowired
-	CardService cservice;
+	InventoryService iservice;
+	
 	
 	public String addtransaction(TransactionRequest tr) {
 		int idAcheteur = tr.getIdacheteur();
@@ -25,7 +26,7 @@ public class TransactionService {
 		if (accountAcheteur < 0) {
 			return "There is a problem with your sold";
 		}
-		int priceCard = cservice.getPrice(idCard);
+		int priceCard = iservice.getPrice(idCard);
 		if (accountAcheteur <= priceCard) {
 			return " You don't have enough money to buy this card";
 		}
