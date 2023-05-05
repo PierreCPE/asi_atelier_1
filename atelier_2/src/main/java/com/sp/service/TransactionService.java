@@ -17,6 +17,8 @@ public class TransactionService {
 	UserService uservice;
 	@Autowired
 	InventoryService iservice;
+	@Autowired
+	CardService cservice;
 	
 	
 	public String addtransaction(TransactionRequest tr) {
@@ -32,6 +34,7 @@ public class TransactionService {
 		}
 		else {
 			
+			return " Transaction done ";
 		}
 		//Transaction createdTransaction=tRepository.save(t);
 		//System.out.println(createdTransaction);

@@ -16,9 +16,8 @@ public class Transaction {
 	public Transaction() {
 	}
 
-	public Transaction( int id, int iduser1, int iduser2, int price) {
+	public Transaction( int iduser1, int iduser2, int price) {
 		super();
-		this.id=id;
 		this.iduser1 = iduser1;
 		this.iduser2 = iduser2;
 		this.price = price;

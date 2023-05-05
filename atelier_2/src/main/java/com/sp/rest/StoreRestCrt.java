@@ -10,18 +10,12 @@
 
   import com.sp.model.TransactionRequest;
   import com.sp.service.TransactionService;
-  import com.sp.service.UserService;
-  import com.sp.service.CardService;
 
 
 @RestController
 public class StoreRestCrt {
 	@Autowired
     TransactionService tservice;
-	@Autowired
-	UserService uservice;
-	@Autowired
-	CardService cservice;
 
 	@RequestMapping("/buy")
 	public String buy() {
