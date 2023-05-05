@@ -15,6 +15,12 @@ import com.sp.service.CardService;
 public class CardRestCrt {
     @Autowired
     CardService cService;
+    
+    @RequestMapping(method=RequestMethod.GET,value={"/","/index"})
+	public String index(Model model) {
+		model.addAttribute("messageLocal", messageLocal);
+		return "index";
+	}
 	
     @RequestMapping(method=RequestMethod.GET,value="/card/{id}")
 	public Card getCard(@PathVariable String id) {
