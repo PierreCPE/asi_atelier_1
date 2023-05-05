@@ -1,7 +1,5 @@
 package com.sp.rest;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -35,17 +33,8 @@ public class UserRestCrt {
 	}
 	
 	@GetMapping("/") //Le getmapping donne par défaut la requestmethod.get
-	public String readCookie(@CookieValue(value = "username", defaultValue = "Atta") String username) {
-	    return "Hey! My username is " + username;
+	public String readCookie(@CookieValue(value = "id", defaultValue = "0") String retId) {
+	    return "Hey! My id is " + retId;
 	}
-	@GetMapping("/change-username")
-	public String setCookie(HttpServletResponse response) {
-	    // create a cookie
-	    Cookie cookie = new Cookie("username", "Jovan");
 
-	    //add cookie to response
-	    response.addCookie(cookie);
-
-	    return "Username is changed!";
-	}
 }
