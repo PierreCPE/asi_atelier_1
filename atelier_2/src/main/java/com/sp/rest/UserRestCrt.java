@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sp.model.User;
+import com.sp.model.UserDTORegister;
 import com.sp.service.UserService;
 import com.sp.service.LoginService;
 
@@ -22,7 +23,7 @@ public class UserRestCrt {
 	LoginService lService;
 	
 	@RequestMapping(method=RequestMethod.POST,value="/user") //Lors de la connexion prend la méthode post avec les valeurs
-	public void addUser(@RequestBody User user) {
+	public void addUser(@RequestBody UserDTORegister user) {
 		uService.addUser(user);
 	}
 	
