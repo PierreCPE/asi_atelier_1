@@ -12,14 +12,13 @@ public class User  {
 	private String userName;
 	private String mail;
 	private String password;
-	
+	private int solde;
 
 	public User() {	
 	}
 
-	public User(int id,String userName, String mail, String password) {
+	public User(String userName, String mail, String password) {
 		super();
-		this.id=id;
 		this.userName = userName;
 		this.mail = mail;
 		this.password = password;
@@ -51,6 +50,14 @@ public class User  {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public int getSolde() {
+		return solde;
+	}
+	
+	public void setSolde(int solde) {
+		this.solde = solde;
 	}
 	
 	@Override
