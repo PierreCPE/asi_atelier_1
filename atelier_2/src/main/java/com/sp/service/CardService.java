@@ -35,16 +35,23 @@ public class CardService {
 		this.isInit = true;
 	}
 	
+	/**
+	 * Ajoute la carte c dans le repo de cartes si elle n'y est pas déjà
+	 * @param c
+	 */
 	public void addToCardRepo(Card c) {
-		cRepo.save(c);
+		Optional<Card> card = cRepo.findById(c.getId());
+		if (!card.isPresent()) {
+			cRepo.save(c);
+		}
 	}
 	
 	/**
 	 * Retourne 5 cartes aléatoires pour un nouvel utilisateur
-	 * @return
+	 * @return cardList
 	 */
-	public List<TemplateCard> getFiveFirstCards() {
-	    List<TemplateCard> cardList = new ArrayList<>();
+	public List<Card> getFiveFirstCards() {
+	    List<Card> cardList = new ArrayList<>();
 	    List<TemplateCard> allCards = (List<TemplateCard>) tcRepo.findAll();
 
 	    Random rand = new Random();
@@ -53,25 +60,21 @@ public class CardService {
 	        int index = rand.nextInt(allCards.size());
 	        if (!selectedIndexes.contains(index)) {
 	            selectedIndexes.add(index);
-	            cardList.add(allCards.get(index));
+	            Card c = (Card) allCards.get(index);
+	            cardList.add(c);
+	            this.addToCardRepo(c);
 	        }
 	    }
 	    return cardList;
 	}
-	
-	public int getPrice(int idcard) {
-		Optional<Card> card = cRepo.findById(idcard);
-		if (card.isPresent()) {
-			return card.get().getPrix();
-		}
-		else {
-			return -1;
-		}
-	}
 
-	
+	/**
+	 * Retourne la carte d'id passé en paramètre
+	 * @param id
+	 * @return card
+	 */
 	public Card getCard(int id) {
-		Optional<Card> c0pt = tcRepo.findById(id);
+		Optional<Card> c0pt = cRepo.findById(id);
 		if (c0pt.isPresent()) {
 			return c0pt.get();
 		}

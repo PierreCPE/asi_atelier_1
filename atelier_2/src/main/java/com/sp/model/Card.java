@@ -29,7 +29,10 @@ public class Card extends TemplateCard {
 	public void setProprietaire(int proprietaire) {
 		this.proprietaire = proprietaire;
 	}
-	
+
+	public Integer getId() {
+		return id;
+	}
 	
 	
 }
