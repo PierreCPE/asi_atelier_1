@@ -52,7 +52,9 @@ public class UserService {
 		if (uOpt.isPresent()) {
 			User u = uOpt.get();
 			return u.getSolde();
-		}else {
+		}
+		else {
 			return -1;
+		}
 	}
 }
