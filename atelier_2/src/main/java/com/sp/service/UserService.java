@@ -9,7 +9,6 @@ import com.sp.model.User;
 import com.sp.model.UserDTORegister;
 import com.sp.mapper.MapperUser;
 import com.sp.model.Card;
-import com.sp.model.CardTemplate;
 import com.sp.model.Hero;
 import com.sp.repository.UserRepository;
 
@@ -53,7 +52,9 @@ public class UserService {
 		if (uOpt.isPresent()) {
 			User u = uOpt.get();
 			return u.getSolde();
-		}else {
+		}
+		else {
 			return -1;
+		}
 	}
 }
