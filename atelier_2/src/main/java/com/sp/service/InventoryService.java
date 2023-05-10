@@ -41,6 +41,19 @@ public class InventoryService{
         iRepo.save(inv);
 	}
 	
+	public boolean removeCardFromInv(Card c, User u) {
+		Optional<Inventory> iOpt = iRepo.findById(u.getId());
+		if (iOpt.isPresent()) {
+			Inventory inv = iOpt.get();
+			inv.removeCard(c);
+			iRepo.save(inv);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	public Inventory getInventory(int userid) {
 		Optional<Inventory> iOpt = iRepo.findById(userid);
 		if (iOpt.isPresent()) {

@@ -38,17 +38,6 @@ public class CardService {
 	}
 	
 	/**
-	 * Ajoute la carte c dans le repo de cartes si elle n'y est pas déjà
-	 * @param c
-	 */
-	public void addToCardRepo(Card c) {
-		Optional<Card> card = cRepo.findById(c.getId());
-		if (!card.isPresent()) {
-			cRepo.save(c);
-		}
-	}
-	
-	/**
 	 * Retourne 5 cartes aléatoires pour un nouvel utilisateur
 	 * @return cardList
 	 */
@@ -70,6 +59,17 @@ public class CardService {
 	    }
 	    return cardList;
 	}
+	
+	/**
+	 * Ajoute la carte c dans le repo de cartes si elle n'y est pas déjà
+	 * @param c
+	 */
+	public void addToCardRepo(Card c) {
+		Optional<Card> card = cRepo.findById(c.getId());
+		if (!card.isPresent()) {
+			cRepo.save(c);
+		}
+	}
 
 	/**
 	 * Retourne la carte d'id passé en paramètre
@@ -84,5 +84,9 @@ public class CardService {
 		else {
 			return null;
 		}
+	}
+	
+	public void updateCard(Card c) {
+		cRepo.save(c);
 	}
 }

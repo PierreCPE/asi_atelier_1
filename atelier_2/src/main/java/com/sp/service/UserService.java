@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 import com.sp.model.User;
 import com.sp.model.UserDTORegister;
 import com.sp.mapper.MapperUser;
-import com.sp.model.Card;
-import com.sp.model.Hero;
 import com.sp.repository.UserRepository;
 
 
@@ -56,5 +54,9 @@ public class UserService {
 		else {
 			return -1;
 		}
+	}
+
+	public void updateUser(User u) {
+		uRepository.save(u);
 	}
 }

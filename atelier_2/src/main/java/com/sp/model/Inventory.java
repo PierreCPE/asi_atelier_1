@@ -33,4 +33,13 @@ public class Inventory {
 	public void addCard(Card c) {
 		this.deck.add(c);
 	}
+
+	public void removeCard(Card c) {
+	    for (Card card : deck) {
+	        if (card.getName().equals(c.getName())) {
+	            deck.remove(card);
+	            break;
+	        }
+	    }
+	}
 }

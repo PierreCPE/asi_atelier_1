@@ -6,13 +6,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sp.model.TransactionRequest;
+import com.sp.model.Card;
+import com.sp.model.User;
 import com.sp.repository.TransactionRepository;
 
 @Service
 public class TransactionService {
-	@Autowired
-	TransactionRepository tRepository;
+//	@Autowired
+//	TransactionRepository tRepository;
 	@Autowired
 	UserService uservice;
 	@Autowired
@@ -20,24 +21,34 @@ public class TransactionService {
 	@Autowired
 	CardService cservice;
 	
+
 	
-	public String addtransaction(TransactionRequest tr) {
-		int idAcheteur = tr.getIdacheteur();
-		int idCard = tr.getIdcard();
-		int accountAcheteur = uservice.getSolde(idAcheteur);
-		if (accountAcheteur < 0) {
-			return "There is a problem with your sold";
-		}
-		int priceCard = iservice.getPrice(idCard);
-		if (accountAcheteur <= priceCard) {
-			return " You don't have enough money to buy this card";
+	public boolean buyCard(int cardid, int userid) {
+		Card c = cservice.getCard(cardid);
+		User u = uservice.getUser(userid);
+		int prix = c.getPrix();
+		
+		if (u.getSolde()>=prix) {
+			c.setProprietaire(userid);
+			u.debit(prix);
+			iservice.addCardToInv(c, u);
+			cservice.updateCard(c);
+			uservice.updateUser(u);
+			return true;
 		}
 		else {
-			
-			return " Transaction done ";
+			return false;
 		}
-		//Transaction createdTransaction=tRepository.save(t);
-		//System.out.println(createdTransaction);
+	}
+	
+	public void sellCard(int cardid, int userid) {
+		Card c = cservice.getCard(cardid);
+		User u = uservice.getUser(userid);
+		int prix = c.getPrix();
+		
+		if (iservice.removeCardFromInv(c, u)) {
+			u.credit(prix);
+		}
 	}
 
 }

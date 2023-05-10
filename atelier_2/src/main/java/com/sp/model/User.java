@@ -60,6 +60,16 @@ public class User  {
 		this.solde = solde;
 	}
 	
+	public void debit(int prix) {
+		if (this.getSolde()>=prix) {
+			this.setSolde(this.getSolde()-prix);
+		}
+	}
+	
+	public void credit(int prix) {
+		this.setSolde(this.getSolde()+prix);
+	}
+	
 	@Override
 	public String toString() {
 		return "Utilisateur :"+this.userName+" Email : "+this.mail+" Mdp: "+this.password;
