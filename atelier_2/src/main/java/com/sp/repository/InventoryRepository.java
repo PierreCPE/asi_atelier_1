@@ -6,5 +6,5 @@ import com.sp.model.Inventory;
 
 public interface InventoryRepository extends CrudRepository<Inventory, Integer> {
 
-	public List<Inventory> findByName(String name);
+	public List<Inventory> findByIduser(Integer id);
 }

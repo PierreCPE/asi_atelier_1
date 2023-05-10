@@ -1,44 +1,36 @@
 package com.sp.model;
 
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 
 @Entity
-public class Inventory  {
-	private int iduser;
-	private int idcard;
-	private int price;
+public class Inventory {
+	@Id
+	private Integer iduser;
+	@ElementCollection
+	private List<Card> deck;
 	
-	public Inventory(int iduser, int idcard, int price) {
-		super();
+	public Inventory(Integer iduser) {
 		this.iduser = iduser;
-		this.idcard = idcard;
-		this.price = price;
 	}
 
 	public int getIduser() {
 		return iduser;
 	}
 
-	public void setIduser(int iduser) {
+	public void setIduser(Integer iduser) {
 		this.iduser = iduser;
 	}
 
-	public int getIdcard() {
-		return idcard;
+	public List<Card> getDeck() {
+		return deck;
 	}
 
-	public void setIdcard(int idcard) {
-		this.idcard = idcard;
+	public void addCard(Card c) {
+		this.deck.add(c);
 	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-	
-	
 }

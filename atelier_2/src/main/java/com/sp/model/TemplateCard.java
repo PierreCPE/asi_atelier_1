@@ -1,6 +1,11 @@
 package com.sp.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class TemplateCard  {
+	@Id
 	private String name;
 	private String description;
 	private String imgUrl;
@@ -109,7 +114,7 @@ public class TemplateCard  {
 	
 	@Override
 	public String toString() {
-		return "CECI EST UNE CARTE";
+		return "CECI EST UNE TEMPLATE CARD";
 	}
 	
 
