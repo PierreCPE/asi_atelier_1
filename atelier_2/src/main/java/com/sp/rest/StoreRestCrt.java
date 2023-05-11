@@ -1,6 +1,7 @@
   package com.sp.rest;
 
   import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
   import org.springframework.web.bind.annotation.RestController;
 
 
-  import com.sp.model.TransactionRequest;
+  import com.sp.model.TransactionDTO;
   import com.sp.service.TransactionService;
 
 
@@ -22,16 +23,21 @@ public class StoreRestCrt {
 	@Autowired
     TransactionService tservice;
 
-	@RequestMapping("/buy")
-	public String buy() {
-		return "Vous etes la pour acheter !!!";
+	@RequestMapping(method=RequestMethod.POST, value="/buy")
+	public void buy(@RequestBody TransactionDTO transactionDTO) {
+		boolean achatEffectue = tservice.buyCard(transactionDTO);
 	}
 	
-	@RequestMapping("/sell")
-	public String sell() {
-		return "Vous etes la pour vendre !!!";
+	@RequestMapping(method=RequestMethod.POST, value="/sell")
+	public void sell(@RequestBody TransactionDTO transactionDTO) {
+		boolean venteEffectue = tservice.sellCard(transactionDTO);
 	}
 	
+	
+	@RequestMapping(value="/transactions")
+	public List<TransactionDTO> getTransactions() {
+		return tservice.getTransactions();
+	}
 	
 	@RequestMapping(method=RequestMethod.GET,value="/vente/{id1}/{id2}")
 	public String getMsg(@PathVariable int iduser1, @PathVariable int iduser2) {
