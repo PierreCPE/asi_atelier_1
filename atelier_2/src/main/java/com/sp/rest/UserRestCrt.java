@@ -23,9 +23,6 @@ public class UserRestCrt {
 	@Autowired
 	LoginService lService;
 	
-  
-	
-  
 	
   	@RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
   	public String index() {
@@ -41,6 +38,7 @@ public class UserRestCrt {
 	
 	@RequestMapping(method=RequestMethod.GET,value="/user/{id}")
 	public User getUser(@PathVariable String id) {
+		System.out.println(id);
 		User u=uService.getUser(Integer.valueOf(id));
 		return u;
 	}

@@ -60,6 +60,7 @@ public class CardService {
 	            c.setProprietaire(userid);
 	            cardList.add(c);
 	            this.addToCardRepo(c);
+	            System.out.println(c);
 	        }
 	    }
 	    return cardList;
