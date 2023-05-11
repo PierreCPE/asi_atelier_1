@@ -1,6 +1,7 @@
   package com.sp.rest;
 
   import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -32,6 +33,11 @@ public class StoreRestCrt {
 		boolean venteEffectue = tservice.sellCard(transactionDTO);
 	}
 	
+	
+	@RequestMapping(value="/transactions")
+	public List<TransactionDTO> getTransactions() {
+		return tservice.getTransactions();
+	}
 	
 	@RequestMapping(method=RequestMethod.GET,value="/vente/{id1}/{id2}")
 	public String getMsg(@PathVariable int iduser1, @PathVariable int iduser2) {

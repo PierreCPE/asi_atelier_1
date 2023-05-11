@@ -12,4 +12,11 @@ public class MapperTransaction {
 		return transaction;
 	}
 	
+	public static TransactionDTO TransactiontoTransactionDTO(Transaction transaction) {
+		TransactionDTO transactionDTO = new TransactionDTO();
+		transactionDTO.setIdcard(transaction.getIdCard());
+		transactionDTO.setIduser(transaction.getIdVendeur());
+		return transactionDTO;
+	}
+	
 }

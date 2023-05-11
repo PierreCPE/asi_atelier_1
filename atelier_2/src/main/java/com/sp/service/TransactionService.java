@@ -1,6 +1,8 @@
 
 package com.sp.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,4 +94,13 @@ public class TransactionService {
 	    return venteEffectue;	
 	}
 
+	public List<TransactionDTO> getTransactions() {
+		List<TransactionDTO> res = new ArrayList<TransactionDTO>();
+	    Iterable<Transaction> list = tRepository.findAll();
+	    for (Transaction transaction:list) {
+	    	res.add(MapperTransaction.TransactiontoTransactionDTO(transaction));
+	    }
+	    return res;
+	}
+	
 }
