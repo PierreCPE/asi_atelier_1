@@ -8,45 +8,38 @@ import javax.persistence.Id;
 public class Transaction {
 	@Id
 	@GeneratedValue
-	private Integer id;
-	private int iduser1;
-	private int iduser2;
+	private Integer idCard;
+	private int idVendeur;
+	private int idAcheteur;
 	private int price;
 	
 	public Transaction() {
 	}
 
-	public Transaction( int iduser1, int iduser2, int price) {
-		super();
-		this.iduser1 = iduser1;
-		this.iduser2 = iduser2;
-		this.price = price;
+	public Integer getIdCard() {
+		return idCard;
+	}
+
+	public void setIdCard(Integer idCard) {
+		this.idCard = idCard;
+	}
+
+	public int getIdVendeur() {
+		return idVendeur;
+	}
+
+	public void setIdVendeur(int idVendeur) {
+		this.idVendeur = idVendeur;
+	}
+
+	public int getIdAcheteur() {
+		return idAcheteur;
+	}
+
+	public void setIdAcheteur(int idAcheteur) {
+		this.idAcheteur = idAcheteur;
 	}
 	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-	
-	public int getIduser1() {
-		return iduser1;
-	}
-
-	public void setIduser1(int iduser1) {
-		this.iduser1 = iduser1;
-	}
-
-	public int getIduser2() {
-		return iduser2;
-	}
-
-	public void setIduser2(int iduser2) {
-		this.iduser2 = iduser2;
-	}
-
 	public int getPrice() {
 		return price;
 	}
@@ -57,7 +50,7 @@ public class Transaction {
 
 	@Override
 	public String toString() {
-		return "TRANSACTION ["+this.id+"]: acheteur:"+this.iduser1+", vendeur:"+this.iduser2+", prix:"+this.price+"";
+		return "TRANSACTION ["+this.idCard+"]: acheteur:"+this.idAcheteur+", vendeur:"+this.idVendeur+", prix:"+this.price+"";
 	}
 }
 

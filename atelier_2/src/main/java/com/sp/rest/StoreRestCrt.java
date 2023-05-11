@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
   import org.springframework.web.bind.annotation.RestController;
 
 
-  import com.sp.model.TransactionRequest;
+  import com.sp.model.TransactionDTO;
   import com.sp.service.TransactionService;
 
 
@@ -22,9 +22,9 @@ public class StoreRestCrt {
 	@Autowired
     TransactionService tservice;
 
-	@RequestMapping("/buy")
-	public String buy() {
-		return "Vous etes la pour acheter !!!";
+	@RequestMapping(method=RequestMethod.POST, value="/buy")
+	public void buy(@RequestBody TransactionDTO transactionDTO) {
+	tservice.buyCard(transactionDTO);
 	}
 	
 	@RequestMapping("/sell")

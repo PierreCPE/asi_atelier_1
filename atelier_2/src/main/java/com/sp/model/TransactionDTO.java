@@ -1,11 +1,11 @@
 package com.sp.model;
 
-public class TransactionRequest{
+public class TransactionDTO{
 	private int idacheteur;
 	private int idcard;
 	
 	
-	public TransactionRequest(int idacheteur, int idcard) {
+	public TransactionDTO(int idacheteur, int idcard) {
 		super();
 		this.idacheteur= idacheteur;
 		this.idcard = idcard;
