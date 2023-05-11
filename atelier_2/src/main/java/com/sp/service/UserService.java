@@ -28,10 +28,13 @@ public class UserService {
 	 * @return l'id de l'utilisateur
 	 */
 	public int addUser(UserDTORegister userDTO){
+		System.out.println(userDTO.getUserName());
 		Optional<User> uOpt =uRepository.findByUserName(userDTO.getUserName());
+		System.out.println(uOpt);
 		if (!uOpt.isPresent()) {
 			User u = MapperUser.UserDTORegisterToUser(userDTO);
 			uRepository.save(u);
+//			System.out.println(u);
 			
 			attributeCard();
 			

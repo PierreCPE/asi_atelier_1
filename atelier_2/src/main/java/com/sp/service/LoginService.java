@@ -15,17 +15,18 @@ public class LoginService { // voir le site pour rendre en json le cookie
 	@Autowired
 	UserRepository uRepository;
 
-	public User getUser(int id) {
-		return null;
-	}
+//	public User getUser(int id) {
+//		return null;
+//	}
 	
-	public boolean checklogin(UserDTORegister userdto) {
+	public int checklogin(UserDTORegister userdto) {
 		Optional<User> uOpt =uRepository.findByUserName(userdto.getUserName());
-		if ((uOpt.isPresent()) && (userdto.getPassword().equals(uOpt.get().getPassword()))) {
-			return true;
+		if (uOpt.isPresent()) {
+			if (userdto.getPassword().equals(uOpt.get().getPassword())) {
+				return uOpt.get().getId();
+			}
+			return 0;
 		}
-		else {
-			return false;
-		}
+		return -1;
 	}
 }

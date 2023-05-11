@@ -7,7 +7,7 @@ public class MapperUser {
 	
 	public static User UserDTORegisterToUser(UserDTORegister userDTO) {
 		User user = new User();
-		user.setMail(userDTO.getMail());
+		user.setSurname(userDTO.getSurname());
 		user.setUserName(userDTO.getUserName());
 		user.setPassword(user.getPassword());
 		user.setSolde(0);

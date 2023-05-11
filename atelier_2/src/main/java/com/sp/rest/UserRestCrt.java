@@ -51,31 +51,38 @@ public class UserRestCrt {
 	
 	@RequestMapping(value = {"/register"}, method = RequestMethod.POST)
 	public void register(@RequestBody UserDTORegister DTOuser) {
+//		System.out.println(uService.addUser(DTOuser));
 		uService.addUser(DTOuser);
 	}
 	
 	
 	@RequestMapping(value = {"/login"}, method = RequestMethod.POST)
-	public ResponseEntity<?> login(@RequestBody UserDTORegister userdto, HttpServletResponse response) throws IOException {
-	    boolean ret = lService.checklogin(userdto);
-	    if (!ret) {
-	        Map<String, String> errorResponse = new HashMap<>();
-	        errorResponse.put("error", "Identifiant ou mot de passe incorrect");
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
-	    } else {
-	    	session.setAttribute("connected", true);
-	        return ResponseEntity.ok().build();
-	    }
+	public int login(@RequestBody UserDTORegister userdto) {
+//		System.out.println(lService.checklogin(userdto));
+	    return lService.checklogin(userdto);
 	}
 	
-	@RequestMapping(method=RequestMethod.GET,value="/home")
-	public String home(HttpSession session, HttpServletResponse response) throws IOException {
-	    if (session.getAttribute("connected") == null) {
-	        response.sendRedirect("/login.html");
-	        return null;
-	    }
-	    response.sendRedirect("/home.html");
-	    return null;
-	}
+//	@RequestMapping(method=RequestMethod.POST, value="/login")
+//	public int verifLogin(@RequestBody User user) {
+//		try {
+//			User usr = authRestService.getLogs(user.getSurname(), user.getPassword());
+//			//System.out.println(usr.getId());
+//			return usr.getId();
+//		} catch (FonctionalException e) {
+//			 e.printStackTrace(); 
+//			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,e.getMessage());
+//			
+//		}
+//	}
+	
+//	@RequestMapping(method=RequestMethod.GET,value="/home")
+//	public String home(HttpSession session, HttpServletResponse response) throws IOException {
+//	    if (session.getAttribute("connected") == null) {
+//	        response.sendRedirect("/login.html");
+//	        return null;
+//	    }
+//	    response.sendRedirect("/home.html");
+//	    return null;
+//	}
 
 }

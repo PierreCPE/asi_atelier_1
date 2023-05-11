@@ -3,7 +3,7 @@ package com.sp.model;
 public class UserDTORegister {
 	
 	private String userName;
-	private String mail;
+	private String surname;
 	private String password;
 	
 	public UserDTORegister() {	
@@ -17,12 +17,12 @@ public class UserDTORegister {
 		this.userName = userName;
 	}
 
-	public String getMail() {
-		return mail;
+	public String getSurname() {
+		return this.surname;
 	}
 
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
 	public String getPassword() {
