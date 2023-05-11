@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.sp.mapper.MapperCard;
 import com.sp.model.Card;
 import com.sp.model.TemplateCard;
+import com.sp.model.User;
 import com.sp.repository.CardRepository;
 import com.sp.repository.TemplateCardRepository;
 
@@ -24,6 +25,11 @@ public class CardService {
 	TemplateCardRepository tcRepo;
 	@Autowired
 	CardRepository cRepo;
+	@Autowired
+	InventoryService iservice;
+	@Autowired
+	UserService uservice;
+	
 	
 	/**
 	 * Initialise le repo card template (provisoire)
@@ -50,6 +56,7 @@ public class CardService {
 	    List<TemplateCard> allCards = (List<TemplateCard>) tcRepo.findAll();
 	    Random rand = new Random();
 	    Set<Integer> selectedIndexes = new HashSet<>();
+	    User u = uservice.getUser(userid);
 	    while (selectedIndexes.size() < 5) {
 	        int index = rand.nextInt(allCards.size());
 	        if (!selectedIndexes.contains(index)) {
@@ -60,6 +67,9 @@ public class CardService {
 	            c.setProprietaire(userid);
 	            cardList.add(c);
 	            this.addToCardRepo(c);
+	            System.out.println(u);
+	            iservice.addCardToInv(c, u);
+	            System.out.println(c);
 	        }
 	    }
 	    return cardList;

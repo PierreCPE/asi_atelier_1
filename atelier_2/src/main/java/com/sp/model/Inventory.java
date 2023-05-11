@@ -1,5 +1,6 @@
 package com.sp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
@@ -12,7 +13,11 @@ public class Inventory {
 	@Id
 	private Integer iduser;
 	@ElementCollection
-	private List<Card> deck;
+	private List<Card> deck = new ArrayList<Card>();
+	
+	public Inventory() {
+		
+	}
 	
 	public Inventory(Integer iduser) {
 		this.iduser = iduser;
