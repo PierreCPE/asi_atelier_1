@@ -34,7 +34,7 @@ public class TransactionService {
 	 * @return un booléen indiquant si l'achat a pû être effectué
 	 */
 	
-	public boolean buyCard(TransactionDTO transactionDTO) {
+	public String buyCard(TransactionDTO transactionDTO) {
 		
 		boolean achatEffectue = false;
 		User acheteur = uservice.getUser(transactionDTO.getIduser());
@@ -42,6 +42,7 @@ public class TransactionService {
 		Transaction t;
 		int prix;
 		User vendeur;
+		String log = "";
 		
 		Optional<Transaction> tOpt = tRepository.findById(transactionDTO.getIdcard());
 		
@@ -67,11 +68,17 @@ public class TransactionService {
 					t.setIdAcheteur(transactionDTO.getIduser());
 					uservice.updateUser(acheteur);
 					uservice.updateUser(vendeur);
-					achatEffectue = true;
+					log = "Achat effectué";
+				} else {
+					log = "Solde insuffisant";
 				}
+			} else {
+				log = "Erreur sur les utilisateurs";
 			}
+		} else {
+			log = "Cette carte n'est pas en vente";
 		}
-		return achatEffectue;
+		return log;
 	}
 	
 	public String sellCard(TransactionDTO transactionDTO) {
