@@ -1,7 +1,12 @@
 package com.sp.rest;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,5 +42,25 @@ public class UserRestCrt {
 	public String readCookie(@CookieValue(value = "id", defaultValue = "0") String retId) {
 	    return "Hey! My id is " + retId;
 	}
+	
+	@RequestMapping(value = {"/register"}, method = RequestMethod.POST)
+	public void register(@RequestBody UserDTORegister DTOuser) {
+		uService.addUser(DTOuser);
+	}
+	
+	
+	@RequestMapping(value = {"/login"}, method = RequestMethod.POST)
+	public ResponseEntity<Map<String, String>> login(@RequestBody UserDTORegister userdto) {
+	    boolean ret = lService.checklogin(userdto);
+	    if (!ret) {
+	        Map<String, String> errorResponse = new HashMap<>();
+	        errorResponse.put("error", "Identifiant ou mot de passe incorrect");
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+	    } else {
+	        return ResponseEntity.ok().build();
+	    }
+	}
+
+
 
 }

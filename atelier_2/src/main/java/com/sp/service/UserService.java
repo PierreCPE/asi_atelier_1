@@ -27,15 +27,21 @@ public class UserService {
 	 * @return l'id de l'utilisateur
 	 */
 	public int addUser(UserDTORegister userDTO){
-		
-		User u = MapperUser.UserDTORegisterToUser(userDTO);
-		uRepository.save(u);
-		
-		attributeCard();
-		
-		return u.getId();
+		Optional<User> uOpt =uRepository.findByUserName(userDTO.getUserName());
+		if (!uOpt.isPresent()) {
+			User u = MapperUser.UserDTORegisterToUser(userDTO);
+			uRepository.save(u);
+			
+			attributeCard();
+			
+			return u.getId();
+		}
+		else {
+			return -1;
+		}
 	
 	}
+	
 	
 	public void attributeCard() {
 		
