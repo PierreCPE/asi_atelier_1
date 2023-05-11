@@ -1,32 +1,40 @@
 function connect(){
 
-    fetch('/login', {
-        method: 'POST',
-        headers: {  
-            'Content-Type': 'application/json'
+fetch('/login', {
+    method: 'POST',
+    headers: {  
+        'Content-Type': 'application/json'
 
-        },
-        body: JSON.stringify({
-            "surname": document.getElementsByClassName("surname")[0].value,
-            "passwd": document.getElementsByClassName("passwd")[0].value
-        })
-    })  .then(data => data.json())
-        .then(data => {
-            if (data == -1){
-                alert("Invalid login or password");
-            }
-            else{
-            console.log(data);
-            localStorage.setItem("id", data);
-            // window.location.href = "/home";
-        }
-        })
-        .catch((err) => {
-            console.log(err);
-            
-        })
-        
-    }
+    },
+    body: JSON.stringify({
+        "surname": document.getElementsByClassName("surname")[0].value,
+        "passwd": document.getElementsByClassName("passwd")[0].value
+    })
+})
+
+	.then(response => {
+	    if (response.status == 401) {
+	        throw new Error("Incorrect login !");
+	    }
+	    if (response.status !== 200) {
+	        throw new Error("Server error: " + response.status);
+	    }
+	    //if (response.status == 200) {
+	    //    throw new Error("CA MARCHE" + response.status);
+	    //}
+	    window.location.href = "/home";
+	})
+
+	.then(data => {
+	    console.log(data); // affiche la réponse du serveur dans la console
+	    //localStorage.setItem("id", data);
+	    // window.location.href = "/home";
+	})
+	.catch((err) => {
+	    console.log(err);
+	    alert('Une erreur est survenue');
+	})
+}
 
 function register(){
 
@@ -50,7 +58,6 @@ function register(){
 	    })
 	    	.then(data => {
 		        console.log(data);
-		        localStorage.setItem("id", data);
 	        	window.location.href = "/login.html";
 })
 		

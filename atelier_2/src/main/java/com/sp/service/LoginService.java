@@ -21,7 +21,7 @@ public class LoginService { // voir le site pour rendre en json le cookie
 	
 	public boolean checklogin(UserDTORegister userdto) {
 		Optional<User> uOpt =uRepository.findByUserName(userdto.getUserName());
-		if ((uOpt.isPresent()) && (userdto.getPassword() == uOpt.get().getPassword())) {
+		if ((uOpt.isPresent()) && (userdto.getPassword().equals(uOpt.get().getPassword()))) {
 			return true;
 		}
 		else {

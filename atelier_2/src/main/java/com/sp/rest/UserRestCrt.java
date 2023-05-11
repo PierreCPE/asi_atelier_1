@@ -1,8 +1,12 @@
 package com.sp.rest;
 
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +30,8 @@ public class UserRestCrt {
 	UserService uService;
 	@Autowired
 	LoginService lService;
+	@Autowired
+	private HttpSession session;
 	
 	@RequestMapping(method=RequestMethod.POST,value="/user") //Lors de la connexion prend la méthode post avec les valeurs
 	public void addUser(@RequestBody UserDTORegister user) {
@@ -50,17 +56,26 @@ public class UserRestCrt {
 	
 	
 	@RequestMapping(value = {"/login"}, method = RequestMethod.POST)
-	public ResponseEntity<Map<String, String>> login(@RequestBody UserDTORegister userdto) {
+	public ResponseEntity<?> login(@RequestBody UserDTORegister userdto, HttpServletResponse response) throws IOException {
 	    boolean ret = lService.checklogin(userdto);
 	    if (!ret) {
 	        Map<String, String> errorResponse = new HashMap<>();
 	        errorResponse.put("error", "Identifiant ou mot de passe incorrect");
 	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
 	    } else {
+	    	session.setAttribute("connected", true);
 	        return ResponseEntity.ok().build();
 	    }
 	}
-
-
+	
+	@RequestMapping(method=RequestMethod.GET,value="/home")
+	public String home(HttpSession session, HttpServletResponse response) throws IOException {
+	    if (session.getAttribute("connected") == null) {
+	        response.sendRedirect("/login.html");
+	        return null;
+	    }
+	    response.sendRedirect("/home.html");
+	    return null;
+	}
 
 }
