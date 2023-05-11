@@ -70,3 +70,12 @@ function sell($idc){
         })
     })
 }
+
+// Sélectionner le bouton
+var bouton = document.getElementById("insc");
+
+// Ajouter un écouteur d'événement au clic sur le bouton
+bouton.addEventListener("click", function() {
+    // Rediriger vers une autre page
+    window.location.href = "./templates/login.html";
+});
