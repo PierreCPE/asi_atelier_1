@@ -20,10 +20,11 @@ public class CardService {
 	Boolean isInit = false;
 	@Autowired
 	TemplateCardRepository tcRepo;
+	@Autowired
 	CardRepository cRepo;
 	
 	/**
-	 * Initialise le repo card template
+	 * Initialise le repo card template (provisoire)
 	 */
 	public void tcRepoInit() {
 		if (tcRepo.count()==0) {
@@ -41,8 +42,8 @@ public class CardService {
 	 * Retourne 5 cartes aléatoires pour un nouvel utilisateur
 	 * @return cardList
 	 */
-	public List<Card> getFiveFirstCards() {
-		this.tcRepoInit();
+	public List<Card> getFiveFirstCards(int userid) {
+	    this.tcRepoInit();
 	    List<Card> cardList = new ArrayList<>();
 	    List<TemplateCard> allCards = (List<TemplateCard>) tcRepo.findAll();
 
@@ -52,14 +53,23 @@ public class CardService {
 	        int index = rand.nextInt(allCards.size());
 	        if (!selectedIndexes.contains(index)) {
 	            selectedIndexes.add(index);
-	            Card c = (Card) allCards.get(index);
+	            TemplateCard tc = allCards.get(index);
+	            Card c = this.templateToCard(userid, tc.getAffinity(), tc.getAttack(), tc.getDefence(), tc.getDescription(), tc.getEnergy(), tc.getFamily(), tc.getHp(), tc.getImgUrl(), tc.getName());
 	            cardList.add(c);
+	            System.out.println(c.getId());
 	            this.addToCardRepo(c);
 	        }
 	    }
 	    return cardList;
 	}
+
 	
+	private Card templateToCard(int userid, String affinity, int attack, int defence, String description, int energy, String family,
+			int hp, String imgUrl, String name) {
+		Card c = new Card(userid, name, description, imgUrl, family, affinity, hp, energy, attack, defence);
+		return c;
+	}
+
 	/**
 	 * Ajoute la carte c dans le repo de cartes si elle n'y est pas déjà
 	 * @param c
@@ -76,7 +86,7 @@ public class CardService {
 	 * @param id
 	 * @return card
 	 */
-	public Card getCard(int id) {
+	public Card getCard(Integer id) {
 		Optional<Card> c0pt = cRepo.findById(id);
 		if (c0pt.isPresent()) {
 			return c0pt.get();

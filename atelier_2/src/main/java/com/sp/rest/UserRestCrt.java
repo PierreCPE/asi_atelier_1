@@ -51,7 +51,6 @@ public class UserRestCrt {
 	
 	@RequestMapping(value = {"/register"}, method = RequestMethod.POST)
 	public void register(@RequestBody UserDTORegister DTOuser) {
-//		System.out.println(uService.addUser(DTOuser));
 		uService.addUser(DTOuser);
 	}
 	

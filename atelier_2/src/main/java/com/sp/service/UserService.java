@@ -34,9 +34,9 @@ public class UserService {
 		if (!uOpt.isPresent()) {
 			User u = MapperUser.UserDTORegisterToUser(userDTO);
 			uRepository.save(u);
-//			System.out.println(u);
+			System.out.println(u);
 			
-			attributeCard();
+			attributeCard(u.getId());
 			
 			return u.getId();
 		}
@@ -47,8 +47,8 @@ public class UserService {
 	}
 	
 	
-	public void attributeCard() {
-		cardService.getFiveFirstCards();
+	public void attributeCard(int id) {
+		cardService.getFiveFirstCards(id);
 	}
 	
 	public User getUser(int id) {
