@@ -36,6 +36,7 @@ public class InventoryService{
 		if (!iOpt.isPresent()) {
 			this.createInv(u);
 		}
+		iOpt = iRepo.findById(u.getId());
 		Inventory inv = iOpt.get();
         inv.addCard(c);
         iRepo.save(inv);
