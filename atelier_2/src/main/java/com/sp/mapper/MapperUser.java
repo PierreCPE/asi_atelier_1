@@ -9,7 +9,7 @@ public class MapperUser {
 		User user = new User();
 		user.setSurname(userDTO.getSurname());
 		user.setUserName(userDTO.getUserName());
-		user.setPassword(user.getPassword());
+		user.setPassword(userDTO.getPassword());
 		user.setSolde(0);
 		return user;
 	}

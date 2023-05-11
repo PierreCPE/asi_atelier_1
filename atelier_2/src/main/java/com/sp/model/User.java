@@ -72,7 +72,8 @@ public class User  {
 	
 	@Override
 	public String toString() {
-		return "Utilisateur :"+this.userName+" Surname : "+this.surname+" Mdp: "+this.password;
+		return "User [id=" + id + ", userName=" + userName + ", surname=" + surname + ", password=" + password
+				+ ", solde=" + solde + "]";
 	}
 	
 

@@ -48,7 +48,6 @@ public class CardService {
 	    this.tcRepoInit();
 	    List<Card> cardList = new ArrayList<>();
 	    List<TemplateCard> allCards = (List<TemplateCard>) tcRepo.findAll();
-
 	    Random rand = new Random();
 	    Set<Integer> selectedIndexes = new HashSet<>();
 	    while (selectedIndexes.size() < 5) {
@@ -60,7 +59,6 @@ public class CardService {
 	            c.setPrix(50);
 	            c.setProprietaire(userid);
 	            cardList.add(c);
-	            System.out.println(c.getId());
 	            this.addToCardRepo(c);
 	        }
 	    }
@@ -73,10 +71,7 @@ public class CardService {
 	 * @param c
 	 */
 	public void addToCardRepo(Card c) {
-		Optional<Card> card = cRepo.findById(c.getId());
-		if (!card.isPresent()) {
-			cRepo.save(c);
-		}
+		cRepo.save(c);
 	}
 
 	/**

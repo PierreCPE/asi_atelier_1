@@ -136,6 +136,9 @@ public class Card {
 		
 		@Override
 		public String toString() {
-			return "CECI EST UNE TEMPLATE CARD";
+			return "Card [id=" + id + ", proprietaire=" + proprietaire + ", prix=" + prix + ", name=" + name
+					+ ", description=" + description + ", imgUrl=" + imgUrl + ", family=" + family + ", affinity="
+					+ affinity + ", hp=" + hp + ", energy=" + energy + ", attack=" + attack + ", defence=" + defence
+					+ "]";
 		}
 }
