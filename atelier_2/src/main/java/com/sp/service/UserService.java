@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sp.model.Card;
 import com.sp.model.User;
 import com.sp.model.UserDTORegister;
 import com.sp.mapper.MapperUser;
@@ -47,12 +48,19 @@ public class UserService {
 	
 	
 	public void attributeCard() {
-		
+		cardService.getFiveFirstCards();
 	}
 	
 	public User getUser(int id) {
-		return null;
+		Optional<User> u0pt = uRepository.findById(id);
+		if (u0pt.isPresent()) {
+			return u0pt.get();
+		}
+		else {
+			return null;
+		}
 	}
+	
 	
 	public int getSolde(int id_user) {
 		Optional<User> uOpt =uRepository.findById(id_user);
