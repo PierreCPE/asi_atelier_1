@@ -1,30 +1,23 @@
 package com.sp.rest;
 
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.sp.model.User;
 import com.sp.model.UserDTORegister;
 import com.sp.service.UserService;
 import com.sp.service.LoginService;
 
-@RestController
+@Controller
 public class UserRestCrt {
 	@Autowired
 	UserService uService;
@@ -32,6 +25,19 @@ public class UserRestCrt {
 	LoginService lService;
 	@Autowired
 	private HttpSession session;
+	
+	@Value("${welcome.message}")
+  	private String message;
+  
+	
+  
+	
+  	@RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
+  	public String index() {
+  	    return "index.html";
+  	
+  	}	
+	
 	
 	@RequestMapping(method=RequestMethod.POST,value="/user") //Lors de la connexion prend la méthode post avec les valeurs
 	public void addUser(@RequestBody UserDTORegister user) {
@@ -44,10 +50,12 @@ public class UserRestCrt {
 		return u;
 	}
 	
-	@GetMapping("/") //Le getmapping donne par défaut la requestmethod.get
-	public String readCookie(@CookieValue(value = "id", defaultValue = "0") String retId) {
-	    return "Hey! My id is " + retId;
-	}
+	@GetMapping("/register") //Le getmapping donne par défaut la requestmethod.get
+    public String register(Model model) {
+//		UserDTORegister DTOuser = new UserDTORegister();
+//    	model.addAttribute("DTOuser", DTOuser);
+    	return "register.html";
+    }
 	
 	@RequestMapping(value = {"/register"}, method = RequestMethod.POST)
 	public void register(@RequestBody UserDTORegister DTOuser) {
@@ -55,6 +63,10 @@ public class UserRestCrt {
 		uService.addUser(DTOuser);
 	}
 	
+	@GetMapping("/login") //Le getmapping donne par défaut la requestmethod.get
+    public String login() {
+    	return "login.html";
+    }
 	
 	@RequestMapping(value = {"/login"}, method = RequestMethod.POST)
 	public int login(@RequestBody UserDTORegister userdto) {
