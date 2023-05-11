@@ -17,7 +17,7 @@ fetch('/login', {
 		console.log(response)
 	    if (Number.isInteger(response) && response!=-1) {
 			localStorage.setItem("id", response);
-	        window.location.href = "/home.html";
+	        window.location.href = "/home";
 	    }
 	    else {
 			alert("ca marche po")
@@ -47,7 +47,7 @@ function register(){
 	    })
 	    	.then(data => {
 		        //console.log(data);
-	        	window.location.href = "/login.html";
+	        	window.location.href = "/login";
 })
 		
     }
@@ -77,5 +77,5 @@ var bouton = document.getElementById("insc");
 // Ajouter un écouteur d'événement au clic sur le bouton
 bouton.addEventListener("click", function() {
     // Rediriger vers une autre page
-    window.location.href = "./templates/login.html";
+    window.location.href = "/login";
 });
