@@ -1,0 +1,32 @@
+  <!DOCTYPE HTML>
+  <html>
+  <head>
+  <meta charset="UTF-8" />
+  <title>Bienvenue !</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+  </head>
+  <body>	
+  	<div>
+  		<h1> Cartomania : site de carte à échanger</h1>
+  	</div>
+  	<h1>Bienvenue !</h1>
+  	<div>	
+  		<ul>
+  			<li><a href="#">Accueil</a></li>
+  		</ul>
+  	</div>
+  	<div>
+  		<p th:utext="${messageLocal}">...</p>
+  	</div>
+  	<div>
+  		<ul>
+  			<li><a href="/register"><img src="/img/lego-jack.jpg" width="100"
+  					alt="">Register</a></li>
+  			<li><a href="/login"><img src="/img/lego-cup.jpg" width="100"
+  					alt="">Authentification</a></li>
+
+  		</ul>
+  	</div>
+  </body>
+  </html>
