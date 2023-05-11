@@ -55,7 +55,7 @@ public class TransactionService {
 			
 			//Vérifie que le vendeur et l'acheetur existent
 			
-			if (!(vendeur.equals(null) && !(acheteur.equals(null)))) {
+			if (!(vendeur == null) && !(acheteur == null)) {
 				
 				//Vérifie que l'acheteur a assez d'argent
 				if (acheteur.getSolde()>=prix) {
@@ -74,24 +74,28 @@ public class TransactionService {
 		return achatEffectue;
 	}
 	
-	public boolean sellCard(TransactionDTO transactionDTO) {
+	public String sellCard(TransactionDTO transactionDTO) {
 		
-		boolean venteEffectue= false;
+		String log;
 		Optional<Transaction> tOpt = tRepository.findById(transactionDTO.getIdcard());
 		Card c = cservice.getCard(transactionDTO.getIdcard());
 		User u = uservice.getUser(transactionDTO.getIduser()); 
 		int prix;
 		
-		if (tOpt.isEmpty() && !(c.equals(null) && !(u.equals(null)))) {
+		if (tOpt.isEmpty() && !(c == null) && !(u == null)) {
 			prix = c.getPrix();
 			if (iservice.removeCardFromInv(c, u)) {
 				Transaction transaction = MapperTransaction.TransactionDTOtoTransaction(transactionDTO);
 				transaction.setPrice(prix);
 				tRepository.save(transaction);
-				venteEffectue = true;
+				log = "Mise en vente effectuée";
+			} else {
+				log = "Cette carte n'appaartient pas à cet  utilisateur";
 			}
+		} else {
+			log = "Carte ou utilisateur introuvable";
 		}
-	    return venteEffectue;	
+	    return log;
 	}
 
 	public List<TransactionDTO> getTransactions() {

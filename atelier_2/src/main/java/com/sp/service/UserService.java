@@ -28,7 +28,7 @@ public class UserService {
 	 * @return l'id de l'utilisateur
 	 */
 	public int addUser(UserDTORegister userDTO){
-		System.out.println(userDTO.getUserName());
+		System.out.println(userDTO);
 		Optional<User> uOpt =uRepository.findByUserName(userDTO.getUserName());
 		System.out.println(uOpt);
 		if (!uOpt.isPresent()) {
