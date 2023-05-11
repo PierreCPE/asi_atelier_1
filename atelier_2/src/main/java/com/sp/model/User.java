@@ -10,17 +10,17 @@ public class User  {
 	@GeneratedValue
 	private Integer id;
 	private String userName;
-	private String mail;
+	private String surname;
 	private String password;
 	private int solde;
 
 	public User() {	
 	}
 
-	public User(String userName, String mail, String password) {
+	public User(String userName, String surname, String password) {
 		super();
 		this.userName = userName;
-		this.mail = mail;
+		this.surname = surname;
 		this.password = password;
 	}
 
@@ -37,11 +37,11 @@ public class User  {
 		this.userName = userName;	
 	}
 
-	public String getMail() {
-		return mail;
+	public String getSurname() {
+		return this.surname;
 	}
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 	
 	
@@ -72,7 +72,7 @@ public class User  {
 	
 	@Override
 	public String toString() {
-		return "Utilisateur :"+this.userName+" Email : "+this.mail+" Mdp: "+this.password;
+		return "Utilisateur :"+this.userName+" Surname : "+this.surname+" Mdp: "+this.password;
 	}
 	
 

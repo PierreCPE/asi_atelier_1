@@ -7,32 +7,24 @@ fetch('/login', {
 
     },
     body: JSON.stringify({
-        "surname": document.getElementsByClassName("surname")[0].value,
-        "passwd": document.getElementsByClassName("passwd")[0].value
+        "userName": document.getElementsByClassName("surname")[0].value,
+        "passwd": document.getElementsByClassName("passwd")[0].value,
+        "mail": ""
     })
 })
-
+	.then(response => response.json())
 	.then(response => {
-	    if (response.status == 401) {
-	        throw new Error("Incorrect login !");
+		console.log(response)
+	    if (Number.isInteger(response) && response!=-1) {
+			localStorage.setItem("id", response);
+	        window.location.href = "/home.html";
 	    }
-	    if (response.status !== 200) {
-	        throw new Error("Server error: " + response.status);
-	    }
-	    //if (response.status == 200) {
-	    //    throw new Error("CA MARCHE" + response.status);
-	    //}
-	    window.location.href = "/home";
-	})
-
-	.then(data => {
-	    console.log(data); // affiche la réponse du serveur dans la console
-	    //localStorage.setItem("id", data);
-	    // window.location.href = "/home";
+	    else {
+			alert("ca marche po")
+	}
 	})
 	.catch((err) => {
-	    console.log(err);
-	    alert('Une erreur est survenue');
+	    alert("Incorrect login");
 	})
 }
 
@@ -41,23 +33,20 @@ function register(){
     let mdp1 = document.getElementsByClassName("passwd")[0].value;
     let mdp2 = document.getElementsByClassName("passwd2")[0].value;
     
-    if (mdp1 == mdp2){
-		console.log(mdp1,mdp1);
-		
+    if (mdp1 == mdp2){		
 		fetch('/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                "name": document.getElementsByClassName("name")[0].value,
+                "userName": document.getElementsByClassName("name")[0].value,
                 "surname": document.getElementsByClassName("surname")[0].value,
-                "password": document.getElementsByClassName("passwd")[0].value,
-                "money": 5000
+                "password": document.getElementsByClassName("passwd")[0].value
             })
 	    })
 	    	.then(data => {
-		        console.log(data);
+		        //console.log(data);
 	        	window.location.href = "/login.html";
 })
 		
