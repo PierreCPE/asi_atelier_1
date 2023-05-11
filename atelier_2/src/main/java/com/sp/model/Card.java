@@ -12,7 +12,6 @@ public class Card {
 	private Integer id;
 	private int proprietaire;
 	private int prix;
-	
 	private String name;
 	private String description;
 	private String imgUrl;

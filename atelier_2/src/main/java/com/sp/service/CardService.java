@@ -9,6 +9,8 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.sp.mapper.MapperCard;
 import com.sp.model.Card;
 import com.sp.model.TemplateCard;
 import com.sp.repository.CardRepository;
@@ -54,7 +56,9 @@ public class CardService {
 	        if (!selectedIndexes.contains(index)) {
 	            selectedIndexes.add(index);
 	            TemplateCard tc = allCards.get(index);
-	            Card c = this.templateToCard(userid, tc.getAffinity(), tc.getAttack(), tc.getDefence(), tc.getDescription(), tc.getEnergy(), tc.getFamily(), tc.getHp(), tc.getImgUrl(), tc.getName());
+	            Card c = MapperCard.TemplateCardtoCard(tc);
+	            c.setPrix(50);
+	            c.setProprietaire(userid);
 	            cardList.add(c);
 	            System.out.println(c.getId());
 	            this.addToCardRepo(c);
@@ -63,12 +67,6 @@ public class CardService {
 	    return cardList;
 	}
 
-	
-	private Card templateToCard(int userid, String affinity, int attack, int defence, String description, int energy, String family,
-			int hp, String imgUrl, String name) {
-		Card c = new Card(userid, name, description, imgUrl, family, affinity, hp, energy, attack, defence);
-		return c;
-	}
 
 	/**
 	 * Ajoute la carte c dans le repo de cartes si elle n'y est pas déjà
