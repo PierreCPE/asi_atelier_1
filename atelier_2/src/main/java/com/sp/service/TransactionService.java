@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sp.mapper.MapperTransaction;
 import com.sp.model.Card;
 import com.sp.model.Inventory;
 import com.sp.model.TransactionDTO;
@@ -34,7 +35,8 @@ public class TransactionService {
 	public boolean buyCard(TransactionDTO transactionDTO) {
 		
 		boolean achatEffectue = false;
-		User acheteur = uservice.getUser(transactionDTO.getIdacheteur());
+		User acheteur = uservice.getUser(transactionDTO.getIduser());
+		Card c = cservice.getCard(transactionDTO.getIdcard());
 		Transaction t;
 		int prix;
 		User vendeur;
@@ -48,32 +50,46 @@ public class TransactionService {
 			// Récupère son prix et son vendeur
 			prix = t.getPrice();
 			vendeur = uservice.getUser(t.getIdVendeur());
-
-			if (acheteur.getSolde()>=prix) {
-				c.setProprietaire(transactionDTO.getIdacheteur());
-				u.debit(prix);
-				iservice.addCardToInv(c, u);
-				cservice.updateCard(c);
-				uservice.updateUser(u);
-				return true;
-			}
-			else {
-				return false;
+			
+			//Vérifie que le vendeur et l'acheetur existent
+			
+			if (!(vendeur.equals(null) && !(acheteur.equals(null)))) {
+				
+				//Vérifie que l'acheteur a assez d'argent
+				if (acheteur.getSolde()>=prix) {
+					c.setProprietaire(transactionDTO.getIduser());
+					acheteur.debit(prix);
+					vendeur.credit(prix);
+					iservice.addCardToInv(c, acheteur);
+					cservice.updateCard(c);
+					t.setIdAcheteur(transactionDTO.getIduser());
+					uservice.updateUser(acheteur);
+					uservice.updateUser(vendeur);
+					achatEffectue = true;
+				}
 			}
 		}
-		
-		
-		
+		return achatEffectue;
 	}
 	
-	public void sellCard(int cardid, int userid) {
-		Card c = cservice.getCard(cardid);
-		User u = uservice.getUser(userid);
-		int prix = c.getPrix();
+	public boolean sellCard(TransactionDTO transactionDTO) {
 		
-		if (iservice.removeCardFromInv(c, u)) {
-			u.credit(prix);
+		boolean venteEffectue= false;
+		Optional<Transaction> tOpt = tRepository.findById(transactionDTO.getIdcard());
+		Card c = cservice.getCard(transactionDTO.getIdcard());
+		User u = uservice.getUser(transactionDTO.getIduser()); 
+		int prix;
+		
+		if (tOpt.isEmpty() && !(c.equals(null) && !(u.equals(null)))) {
+			prix = c.getPrix();
+			if (iservice.removeCardFromInv(c, u)) {
+				Transaction transaction = MapperTransaction.TransactionDTOtoTransaction(transactionDTO);
+				transaction.setPrice(prix);
+				tRepository.save(transaction);
+				venteEffectue = true;
+			}
 		}
+	    return venteEffectue;	
 	}
 
 }

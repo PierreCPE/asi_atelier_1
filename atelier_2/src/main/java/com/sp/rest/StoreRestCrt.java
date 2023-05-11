@@ -24,12 +24,12 @@ public class StoreRestCrt {
 
 	@RequestMapping(method=RequestMethod.POST, value="/buy")
 	public void buy(@RequestBody TransactionDTO transactionDTO) {
-	tservice.buyCard(transactionDTO);
+		boolean achatEffectue = tservice.buyCard(transactionDTO);
 	}
 	
-	@RequestMapping("/sell")
-	public String sell() {
-		return "Vous etes la pour vendre !!!";
+	@RequestMapping(method=RequestMethod.POST, value="/sell")
+	public void sell(@RequestBody TransactionDTO transactionDTO) {
+		boolean venteEffectue = tservice.sellCard(transactionDTO);
 	}
 	
 	

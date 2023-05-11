@@ -1,20 +1,20 @@
 package com.sp.model;
 
 public class TransactionDTO{
-	private int idacheteur;
+	private int iduser;
 	private int idcard;
 	
 	
-	public TransactionDTO(int idacheteur, int idcard) {
-		super();
-		this.idacheteur= idacheteur;
-		this.idcard = idcard;
+	public TransactionDTO() {
+	
 	}
-	public int getIdacheteur() {
-		return idacheteur;
+	
+	public int getIduser() {
+		return iduser;
 	}
-	public void setIdacheteur(int idacheteur) {
-		this.idacheteur = idacheteur;
+	
+	public void setIduser(int iduser) {
+		this.iduser = iduser;
 	}
 	public int getIdcard() {
 		return idcard;
