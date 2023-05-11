@@ -1,6 +1,11 @@
   package com.sp.rest;
 
-  import org.springframework.beans.factory.annotation.Autowired;
+  import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
   import org.springframework.web.bind.annotation.PathVariable;
   import org.springframework.web.bind.annotation.RequestBody;
   import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,10 +32,6 @@ public class StoreRestCrt {
 		return "Vous etes la pour vendre !!!";
 	}
 	
-	@RequestMapping(method=RequestMethod.POST,value="/addtransaction")
-	public void addTransaction(@RequestBody TransactionRequest tr) {
-		tservice.addtransaction(tr);
-	}
 	
 	@RequestMapping(method=RequestMethod.GET,value="/vente/{id1}/{id2}")
 	public String getMsg(@PathVariable int iduser1, @PathVariable int iduser2) {
