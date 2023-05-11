@@ -59,3 +59,8 @@ Schéma de notre architecture de site web :
   <img src="Images/ASI_atelier2.drawio_v3.png" width="700" title="Schéma site web">
 </p>
 
+Tableau comparatif des différents types d'architecture : 
+
+<p align="center">
+  <img src="Images/comparatif_archi.png" width="700" title="Schéma site web">
+</p>
