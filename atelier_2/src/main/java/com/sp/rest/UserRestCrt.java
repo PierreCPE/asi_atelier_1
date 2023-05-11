@@ -1,7 +1,6 @@
 package com.sp.rest;
 
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,11 +22,7 @@ public class UserRestCrt {
 	UserService uService;
 	@Autowired
 	LoginService lService;
-	@Autowired
-	private HttpSession session;
 	
-	@Value("${welcome.message}")
-  	private String message;
   
 	
   
