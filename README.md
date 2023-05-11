@@ -62,5 +62,5 @@ Schéma de notre architecture de site web :
 Tableau comparatif des différents types d'architecture : 
 
 <p align="center">
-  <img src="Images/comparatif_archi.pdf" width="700" title="Schéma site web">
+  <img src="Images/comparatif_archi.png" width="700" title="Schéma site web">
 </p>
