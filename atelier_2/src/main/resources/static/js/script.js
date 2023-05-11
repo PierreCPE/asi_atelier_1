@@ -7,9 +7,8 @@ fetch('/login', {
 
     },
     body: JSON.stringify({
-        "userName": document.getElementsByClassName("surname")[0].value,
-        "passwd": document.getElementsByClassName("passwd")[0].value,
-        "mail": ""
+        "surname": document.getElementsByClassName("surname")[0].value,
+        "password": document.getElementsByClassName("passwd")[0].value,
     })
 })
 	.then(response => response.json())

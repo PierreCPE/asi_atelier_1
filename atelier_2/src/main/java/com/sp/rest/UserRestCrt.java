@@ -4,6 +4,7 @@ package com.sp.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -61,9 +62,9 @@ public class UserRestCrt {
     }
 	
 	@RequestMapping(value = {"/login"}, method = RequestMethod.POST)
-	public int login(@RequestBody UserDTORegister userdto) {
-//		System.out.println(lService.checklogin(userdto));
-	    return lService.checklogin(userdto);
+	public ResponseEntity<Integer> login(@RequestBody UserDTORegister userdto) {
+		int result = lService.checklogin(userdto);
+	    return ResponseEntity.ok(result);
 	}
 	
 //	@RequestMapping(method=RequestMethod.POST, value="/login")
@@ -88,5 +89,10 @@ public class UserRestCrt {
 //	    response.sendRedirect("/home.html");
 //	    return null;
 //	}
+	
+	@GetMapping("/home") //Le getmapping donne par défaut la requestmethod.get
+    public String home() {
+    	return "home.html";
+    }
 
 }
