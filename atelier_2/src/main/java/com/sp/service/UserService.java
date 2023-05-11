@@ -45,7 +45,7 @@ public class UserService {
 	
 	
 	public void attributeCard() {
-		
+		cardService.getFiveFirstCards();
 	}
 	
 	public User getUser(int id) {
