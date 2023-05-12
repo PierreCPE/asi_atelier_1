@@ -1,5 +1,7 @@
 function connect(){
 
+
+//blabla
 fetch('/login', {
     method: 'POST',
     headers: {  
@@ -15,11 +17,13 @@ fetch('/login', {
 	.then(response => {
 		console.log(response)
 	    if (Number.isInteger(response) && response!=-1) {
+			alert("connecté")
 			localStorage.setItem("id", response);
 	        window.location.href = "/home";
 	    }
 	    else {
-			alert("ca marche po")
+			alert("Incorrect login")
+			window.location.href = "/login"
 	}
 	})
 	.catch((err) => {

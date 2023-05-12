@@ -64,6 +64,7 @@ public class UserRestCrt {
 	@RequestMapping(value = {"/login"}, method = RequestMethod.POST)
 	public ResponseEntity<Integer> login(@RequestBody UserDTORegister userdto) {
 		int result = lService.checklogin(userdto);
+		System.out.println(result);
 	    return ResponseEntity.ok(result);
 	}
 	

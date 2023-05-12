@@ -29,7 +29,7 @@ public class LoginService { // voir le site pour rendre en json le cookie
 				System.out.println("rentre if");
 				return uOpt.get().getId();
 			}
-			return 0;
+			return -1;
 		}
 		return -1;
 	}
