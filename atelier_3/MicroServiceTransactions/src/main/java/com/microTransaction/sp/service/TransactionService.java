@@ -24,8 +24,11 @@ public class TransactionService {
 	 * @param transactionDTO
 	 * @return un booléen indiquant si l'achat a pû être effectué
 	 */
-	
+	public String buyCard(TransactionDTO transactionDTO) {
+		boolean achatEffectue = false;
+	}
 	/*
+	
 	public String buyCard(TransactionDTO transactionDTO) {
 		
 		boolean achatEffectue = false;
