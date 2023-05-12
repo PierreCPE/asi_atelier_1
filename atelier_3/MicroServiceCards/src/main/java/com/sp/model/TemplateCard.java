@@ -1,10 +1,9 @@
 package com.sp.model;
 
 
-public class Card {
+public class TemplateCard {
 
-	private int id;
-	private int userid;
+	private Integer id;
 	private int prix;
 	private String name;
 	private String description;
@@ -16,13 +15,8 @@ public class Card {
 	private int attack;
 	private int defence;
 	
-	public Card() {
-		
-	}
 	
-	
-	public Card(int userid, String name,String description, String imgUrl,String family,String affinity,int hp,int energy,int attack,int defence) {
-		this.userid = userid;
+	public TemplateCard(String name,String description, String imgUrl,String family,String affinity,int hp,int energy,int attack,int defence) {
 		this.prix = 50;
 		
 		this.name = name;
@@ -36,15 +30,7 @@ public class Card {
 		this.defence = defence;
 	}
 
-	public int getUserId() {
-		return this.userid;
-	}
-
-	public void setUserId(int proprietaire) {
-		this.userid = proprietaire;
-	}
-
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 	
@@ -131,7 +117,7 @@ public class Card {
 		
 		@Override
 		public String toString() {
-			return "Card [id=" + id + ", proprietaire=" + this.getUserId() + ", prix=" + prix + ", name=" + name
+			return "Card [id=" + id + ", prix=" + prix + ", name=" + name
 					+ ", description=" + description + ", imgUrl=" + imgUrl + ", family=" + family + ", affinity="
 					+ affinity + ", hp=" + hp + ", energy=" + energy + ", attack=" + attack + ", defence=" + defence
 					+ "]";
