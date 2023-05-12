@@ -1,4 +1,4 @@
-package com.atelier3.MicroServices.MicroServiceTransactions;
+package com.microTransaction.sp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
