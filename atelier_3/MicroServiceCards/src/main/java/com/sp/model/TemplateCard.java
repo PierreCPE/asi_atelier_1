@@ -1,9 +1,12 @@
 package com.sp.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 public class TemplateCard {
-
-	private Integer id;
+	@Id
+	@GeneratedValue
+	private int id;
 	private int prix;
 	private String name;
 	private String description;
@@ -22,8 +25,8 @@ public class TemplateCard {
 		this.name = name;
 		this.description = description;		
 		this.imgUrl=imgUrl;
-		this.family = name;
-		this.affinity = name;
+		this.family = family;
+		this.affinity = affinity;
 		this.hp = hp;
 		this.energy = energy;
 		this.attack = attack;

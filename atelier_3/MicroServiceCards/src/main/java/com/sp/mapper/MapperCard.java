@@ -7,6 +7,8 @@ public class MapperCard {
 	
 	public static Card TemplateCardtoCard(TemplateCard tc) {
 		Card c = new Card();
+		c.setId(tc.getId());
+		c.setPrix(tc.getPrix());
 		c.setName(tc.getName());
 		c.setDescription(tc.getDescription());
 		c.setImgUrl(tc.getImgUrl());
