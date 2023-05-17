@@ -9,7 +9,7 @@ public class User  {
 	@Id
 	@GeneratedValue
 	private Integer id;
-	private String userName;
+	private String username;
 	private String surname;
 	private String password;
 	private int solde;
@@ -23,11 +23,11 @@ public class User  {
 		return id;
 	}
 	
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;	
+	public void setUsername(String username) {
+		this.username = username;	
 	}
 
 	public String getSurname() {
@@ -65,7 +65,7 @@ public class User  {
 	
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", userName=" + userName + ", surname=" + surname + ", password=" + password
+		return "User [id=" + id + ", userName=" + username + ", surname=" + surname + ", password=" + password
 				+ ", solde=" + solde + "]";
 	}
 	
