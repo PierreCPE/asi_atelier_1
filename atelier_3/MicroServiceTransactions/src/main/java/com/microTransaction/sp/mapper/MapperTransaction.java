@@ -4,11 +4,12 @@ import com.microTransaction.sp.model.*;
 
 public class MapperTransaction {
 	
-	public static Transaction TransactionDTOtoTransaction(TransactionDTO transactionDTO) {
+	public static Transaction TransactionDTOtoTransaction(TransactionDTO transactionDTO, int idVendeur, int price) {
 		Transaction transaction = new Transaction();
 		transaction.setIdCard(transactionDTO.getIdcard());
-		transaction.setIdVendeur(transactionDTO.getIduser());
-		//TODO recuperer idAcheteur et price
+		transaction.setIdAcheteur(transactionDTO.getIduser());
+		transaction.setIdVendeur(idVendeur);
+		transaction.setPrice(price);
 		return transaction;
 	}
 	

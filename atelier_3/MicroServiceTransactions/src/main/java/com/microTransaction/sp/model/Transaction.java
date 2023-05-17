@@ -8,7 +8,8 @@ import javax.persistence.Id;
 public class Transaction {
 	@Id
 	@GeneratedValue
-	private Integer idCard;
+	private Integer idTransaction;
+	private int idCard;
 	private int idVendeur;
 	private int idAcheteur;
 	private int price;
