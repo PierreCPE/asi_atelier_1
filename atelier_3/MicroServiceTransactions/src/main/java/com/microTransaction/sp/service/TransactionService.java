@@ -48,6 +48,7 @@ public class TransactionService {
 		String URL_forPrice = URL_CARD.replace("{cardId}", Integer.toString(idCard));
 		CardDTO card = this.restTemplate.getForObject(URL_forPrice, CardDTO.class);
 		int price = card.getPrix();
+		int idVendeur = card.getUserId();
 		
 		// Contacte service USER avec un param idAcheteur pour avoir le UserDTO et en extraire le solde
 		String URL_forSold = URL_USER.replace("{userid}", Integer.toString(idAcheteur));
@@ -62,7 +63,8 @@ public class TransactionService {
 					//TODO modifier le solde de l'acheteur
 					//TODO modifier le solde du vendeur
 					//TODO retirer du market
-					//TODO creer la transaction et l'ajouter a la bdd
+					Transaction t = MapperTransaction.TransactionDTOtoTransaction(transactionDTO,idVendeur,price);
+					tRepository.save(t);
 				}
 				else {
 					log = "Fond insuffisant";
