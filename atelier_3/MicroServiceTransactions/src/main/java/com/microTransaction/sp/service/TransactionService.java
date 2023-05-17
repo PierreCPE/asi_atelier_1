@@ -6,7 +6,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.microTransaction.sp.mapper.MapperTransaction;
 import com.microTransaction.sp.model.TransactionDTO;
@@ -19,6 +23,7 @@ public class TransactionService {
 	@Autowired
 	TransactionRepository tRepository;
 	
+	static final String URL_USER = "http://localhost:8081/user";
 	/**
 	 * Effectue l'achat d'une carte par un utilisateur
 	 * @param transactionDTO
@@ -26,9 +31,21 @@ public class TransactionService {
 	 */
 	public String buyCard(TransactionDTO transactionDTO) {
 		boolean achatEffectue = false;
+		
+		// RestTemplate
+		RestTemplate restTemplate = new RestTemplate();
+
+		// Send request with GET methods.
+		String requestBody = Integer.toString(transactionDTO.getIdcard());
+		// HttpEntity<String>: To get result as String.
+		HttpEntity<String> entity = new HttpEntity<String>(requestBody);
+		ResponseEntity<String> response = restTemplate.exchange(URL_USER, HttpMethod.GET, entity, String.class);
+		int idAcheteur = Integer.parseInt(response.getBody());
+
+				
 	}
+		
 	/*
-	
 	public String buyCard(TransactionDTO transactionDTO) {
 		
 		boolean achatEffectue = false;
@@ -109,4 +126,5 @@ public class TransactionService {
 	    return res;
 	}
 	*/
+	
 }
