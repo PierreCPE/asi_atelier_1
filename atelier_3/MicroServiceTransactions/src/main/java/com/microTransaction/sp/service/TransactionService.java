@@ -23,26 +23,50 @@ public class TransactionService {
 	@Autowired
 	TransactionRepository tRepository;
 	
-	static final String URL_USER = "http://localhost:8081/user";
+	static final String URL_USER = "http://localhost:8081/getUserWithIdCard";
+	static final String URL_CARD = "http://localhost:8084/getPriceWithIdCard";
 	/**
 	 * Effectue l'achat d'une carte par un utilisateur
 	 * @param transactionDTO
 	 * @return un booléen indiquant si l'achat a pû être effectué
 	 */
 	public String buyCard(TransactionDTO transactionDTO) {
-		boolean achatEffectue = false;
+		String log = "";
+		int idAcheteur = transactionDTO.getIduser();
+		int idCard = transactionDTO.getIdcard();
 		
 		// RestTemplate
 		RestTemplate restTemplate = new RestTemplate();
+		
+		// Send request with GET methods.
+		// HttpEntity<String>: To get result as String.
+		HttpEntity<String> entity = new HttpEntity<String>(Integer.toString(idCard));
+		ResponseEntity<String> responseAcheteur = restTemplate.exchange(URL_USER, HttpMethod.GET, entity, String.class);
+		int idVendeur = Integer.parseInt(responseAcheteur.getBody());
+		
+		ResponseEntity<String> responsePrice = restTemplate.exchange(URL_USER, HttpMethod.GET, entity, String.class);
+		int price = Integer.parseInt(responsePrice.getBody());
 
 		// Send request with GET methods.
-		String requestBody = Integer.toString(transactionDTO.getIdcard());
 		// HttpEntity<String>: To get result as String.
-		HttpEntity<String> entity = new HttpEntity<String>(requestBody);
-		ResponseEntity<String> response = restTemplate.exchange(URL_USER, HttpMethod.GET, entity, String.class);
-		int idAcheteur = Integer.parseInt(response.getBody());
-
+		HttpEntity<String> entity2 = new HttpEntity<String>(Integer.toString(idAcheteur));
+		ResponseEntity<String> responseSoldAcheteur = restTemplate.exchange(URL_USER, HttpMethod.GET, entity2, String.class);
+		int soldAcheteur = Integer.parseInt(responseSoldAcheteur.getBody());
+		
+		if (idVendeur >= 0) { // Vérifie que le vendeur existe
+			if (soldAcheteur >= 0) { // Vérifie que l'acheteur existe
+				if (soldAcheteur >= price) { // Vérifie que l'acheteur possède l'argent necessaire
+					log = "Achat effectué";
+				}
 				
+				log = "Fond insuffisant";
+			}
+			
+			log = "Erreur sur les utilisateurs";
+		}
+		
+		return log;
+					
 	}
 		
 	/*
