@@ -81,6 +81,8 @@ public class CardService {
 	public Card findCardById(int id) {
 		return cardRepository.findById(id);
 	}
+	
+
 
 //	public void updateCard(Card card) {
 //		Card cardDB = cardRepository.findById(card.getId());
