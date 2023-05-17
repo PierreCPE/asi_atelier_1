@@ -8,9 +8,12 @@ import com.sp.model.ConnexionDTO;
 public class AuthService { // voir le site pour rendre en json le cookie
 
 	
-	public AuthDTO checkLogin(ConnexionDTO coDTO) {
-		return false; // Todo, demander les informations 
+	public userDTO checkLogin(ConnexionDTO coDTO) {
+		return userDTO;
+		}
 	}
+	
+
 	
 }
 	
