@@ -5,7 +5,7 @@ import com.atelier3.MicroServices.MicroServiceUsers.model.UserRegisterDTO;
 
 public class MapperUser {
 
-	public static User UserDTOtoUser(UserRegisterDTO userRegisterDTO) {
+	public static User UserRegisterDTOtoUser(UserRegisterDTO userRegisterDTO) {
 		User user = new User();
 		user.setSurname(userRegisterDTO.getSurname());
 		user.setUsername(userRegisterDTO.getUsername());

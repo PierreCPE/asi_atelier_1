@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.atelier3.MicroServices.MicroServiceUsers.mapper.MapperUser;
 import com.atelier3.MicroServices.MicroServiceUsers.model.User;
 import com.atelier3.MicroServices.MicroServiceUsers.model.UserRegisterDTO;
 import com.atelier3.MicroServices.MicroServiceUsers.repository.UserRepository;
@@ -14,19 +15,24 @@ public class UserService {
 	@Autowired
 	UserRepository uRepo;
 	
-	public boolean addUser(UserRegisterDTO userDTO) {
+	/**
+	 * Inscrit un utilisateur à la base de données
+	 * Demande à CardService de lui attriuber ses cartes
+	 * @param userRegisterDTO
+	 * @return true si l'utilisateur a pu être créer, false sinon
+	 */			
+	
+	
+	public boolean addUser(UserRegisterDTO userRegisterDTO) {
 		
-		String username = userDTO.getUsername();
-		String password = userDTO.getPassword();
+		String username = userRegisterDTO.getUsername();
+		String password = userRegisterDTO.getPassword();
 		List<User> existant_users = uRepo.findByUsernameAndPassword(username, password)
 		//TODO
-		if (!uOpt.isPresent()) {
-			User u = MapperUser.UserDTORegisterToUser(userDTO);
-			uRepository.save(u);
-			System.out.println(u);
-			
-			attributeCard(u.getId());
-			
+		if (existant_users.isEmpty()) {
+			User u = MapperUser.UserRegisterDTOtoUser(userRegisterDTO);
+			uRepo.save(u);
+			//TODO appel du service créant les cartes
 			return true;
 		}
 		else {
