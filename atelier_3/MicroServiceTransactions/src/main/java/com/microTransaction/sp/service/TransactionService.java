@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.microTransaction.sp.mapper.MapperTransaction;
 import com.microTransaction.sp.model.TransactionDTO;
+import com.microTransaction.sp.model.UserDTO;
+import com.microTransaction.sp.model.CardDTO;
 import com.microTransaction.sp.model.Transaction;
 import com.microTransaction.sp.repository.TransactionRepository;
 
@@ -23,8 +26,14 @@ public class TransactionService {
 	@Autowired
 	TransactionRepository tRepository;
 	
-	static final String URL_USER = "http://localhost:8081/getUserWithIdCard";
-	static final String URL_CARD = "http://localhost:8084/getPriceWithIdCard";
+	static final String URL_CARD = "http://localhost:8084/cards/{cardId}";
+	static final String URL_USER = "http://localhost:8081/users/{userid}";
+	
+	private final RestTemplate restTemplate;
+
+	public TransactionService(RestTemplateBuilder restTemplateBuilder) {
+		this.restTemplate = restTemplateBuilder.build();
+	}
 	/**
 	 * Effectue l'achat d'une carte par un utilisateur
 	 * @param transactionDTO
@@ -35,34 +44,36 @@ public class TransactionService {
 		int idAcheteur = transactionDTO.getIduser();
 		int idCard = transactionDTO.getIdcard();
 		
-		// RestTemplate
-		RestTemplate restTemplate = new RestTemplate();
+		// Contacte service CARD avec un param idCard pour avoir la CardDTO et en extraire le prix
+		String URL_forPrice = URL_CARD.replace("{cardId}", Integer.toString(idCard));
+		CardDTO card = this.restTemplate.getForObject(URL_forPrice, CardDTO.class);
+		int price = card.getPrix();
 		
-		// Send request with GET methods.
-		// HttpEntity<String>: To get result as String.
-		HttpEntity<String> entity = new HttpEntity<String>(Integer.toString(idCard));
-		ResponseEntity<String> responseAcheteur = restTemplate.exchange(URL_USER, HttpMethod.GET, entity, String.class);
-		int idVendeur = Integer.parseInt(responseAcheteur.getBody());
+		// Contacte service USER avec un param idAcheteur pour avoir le UserDTO et en extraire le solde
+		String URL_forSold = URL_USER.replace("{userid}", Integer.toString(idAcheteur));
+		UserDTO user = this.restTemplate.getForObject(URL_forSold, UserDTO.class);
+		int soldAcheteur = user.getSolde();
 		
-		ResponseEntity<String> responsePrice = restTemplate.exchange(URL_USER, HttpMethod.GET, entity, String.class);
-		int price = Integer.parseInt(responsePrice.getBody());
-
-		// Send request with GET methods.
-		// HttpEntity<String>: To get result as String.
-		HttpEntity<String> entity2 = new HttpEntity<String>(Integer.toString(idAcheteur));
-		ResponseEntity<String> responseSoldAcheteur = restTemplate.exchange(URL_USER, HttpMethod.GET, entity2, String.class);
-		int soldAcheteur = Integer.parseInt(responseSoldAcheteur.getBody());
-		
-		if (idVendeur >= 0) { // Vérifie que le vendeur existe
-			if (soldAcheteur >= 0) { // Vérifie que l'acheteur existe
+		if (soldAcheteur >= 0) { // Vérifie que l'acheteur existe
+			if (price >= 0) {
 				if (soldAcheteur >= price) { // Vérifie que l'acheteur possède l'argent necessaire
 					log = "Achat effectué";
+					//TODO modifier le proprietaire
+					//TODO modifier le solde de l'acheteur
+					//TODO modifier le solde du vendeur
+					//TODO retirer du market
+					//TODO creer la transaction et l'ajouter a la bdd
 				}
-				
-				log = "Fond insuffisant";
+				else {
+					log = "Fond insuffisant";
+				}
 			}
-			
-			log = "Erreur sur les utilisateurs";
+			else {
+			log = " Carte pas à vendre";
+			}
+		}
+		else {
+			log = "Erreur sur l'acheteur";
 		}
 		
 		return log;
@@ -70,52 +81,7 @@ public class TransactionService {
 	}
 		
 	/*
-	public String buyCard(TransactionDTO transactionDTO) {
-		
-		boolean achatEffectue = false;
-		User acheteur = uservice.getUser(transactionDTO.getIduser());
-		Card c = cservice.getCard(transactionDTO.getIdcard());
-		Transaction t;
-		int prix;
-		User vendeur;
-		String log = "";
-		
-		Optional<Transaction> tOpt = tRepository.findById(transactionDTO.getIdcard());
-		
-		
-		// Vérifie si la carte est bien mise en vente
-		if (tOpt.isPresent()) {
-			t = tOpt.get();
-			// Récupère son prix et son vendeur
-			prix = t.getPrice();
-			vendeur = uservice.getUser(t.getIdVendeur());
-			
-			//Vérifie que le vendeur et l'acheetur existent
-			
-			if (!(vendeur == null) && !(acheteur == null)) {
-				
-				//Vérifie que l'acheteur a assez d'argent
-				if (acheteur.getSolde()>=prix) {
-					c.setProprietaire(transactionDTO.getIduser());
-					acheteur.debit(prix);
-					vendeur.credit(prix);
-					iservice.addCardToInv(c, acheteur);
-					cservice.updateCard(c);
-					t.setIdAcheteur(transactionDTO.getIduser());
-					uservice.updateUser(acheteur);
-					uservice.updateUser(vendeur);
-					log = "Achat effectué";
-				} else {
-					log = "Solde insuffisant";
-				}
-			} else {
-				log = "Erreur sur les utilisateurs";
-			}
-		} else {
-			log = "Cette carte n'est pas en vente";
-		}
-		return log;
-	}
+	
 	
 	public String sellCard(TransactionDTO transactionDTO) {
 		

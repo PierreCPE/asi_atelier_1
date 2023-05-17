@@ -16,7 +16,7 @@ public class MapperTransaction {
 	public static TransactionDTO TransactiontoTransactionDTO(Transaction transaction) {
 		TransactionDTO transactionDTO = new TransactionDTO();
 		transactionDTO.setIdcard(transaction.getIdCard());
-		transactionDTO.setIduser(transaction.getIdVendeur());
+		transactionDTO.setIduser(transaction.getIdAcheteur());
 		return transactionDTO;
 	}
 	
