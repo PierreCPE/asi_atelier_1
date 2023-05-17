@@ -13,27 +13,17 @@ import com.sp.repository.CardRepository;
 import com.sp.repository.TemplateCardRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 @Service
 public class CardService {
 	Boolean isInit = false;
-	private static final String USER_SERVICE_URL = "http://localhost:8080/users/";
-	@Autowired
-    private RestTemplate restTemplate;
-
 	
 	@Autowired
 	CardRepository cardRepository;
 	
 	@Autowired
 	TemplateCardRepository tcRepo;
-	
-	public CardService(RestTemplateBuilder restTemplateBuilder) {
-		this.restTemplate = restTemplateBuilder.build();
-	}
 	
 	/**
 	 * Initialise le repo card template (provisoire)
@@ -60,26 +50,26 @@ public class CardService {
 	    List<TemplateCard> allCards = (List<TemplateCard>) tcRepo.findAll();
 	    Random rand = new Random();
 	    Set<Integer> selectedIndexes = new HashSet<>();
-	    // COMMENT RECUPERER LE USER DANS LE USER SERVICE ?
-        UserDTO[] user = this.restTemplate.getForObject(USER_SERVICE_URL + userid, UserDTO[].class);
-
-	    User u = uservice.getUser(userid);
 	    while (selectedIndexes.size() < 5) {
 	        int index = rand.nextInt(allCards.size());
 	        if (!selectedIndexes.contains(index)) {
 	            selectedIndexes.add(index);
 	            TemplateCard tc = allCards.get(index);
 	            Card c = MapperCard.TemplateCardtoCard(tc);
-	            c.setPrix(50);
 	            c.setUserid(userid);
 	            cardList.add(c);
 	            this.addToCardRepo(c);
-	            System.out.println(u);
-	            iservice.addCardToInv(c, u);
-	            System.out.println(c);
 	        }
 	    }
 	    return cardList;
+	}
+	
+	/**
+	 * Ajoute la carte c dans le repo de cartes si elle n'y est pas déjà
+	 * @param c
+	 */
+	public void addToCardRepo(Card c) {
+		cardRepository.save(c);
 	}
 
 	
