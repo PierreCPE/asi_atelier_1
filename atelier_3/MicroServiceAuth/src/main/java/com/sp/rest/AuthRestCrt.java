@@ -1,10 +1,11 @@
 package com.sp.rest;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.sp.model.ConnexionDTO;
 import com.sp.service.AuthService;
 
@@ -17,8 +18,11 @@ public class AuthRestCrt {
     AuthService aservice;
     
 	@GetMapping("/checkLogin") //Le getmapping donne par défaut la requestmethod.get
-	public void checkLogin(@RequestBody ConnexionDTO coDTO) {
+	public Optional <userDTO> checkLogin(@RequestBody ConnexionDTO coDTO) {
 		aservice.checkLogin(coDTO);
+		return userDTO;
 	
     }
+	
+	
 }
