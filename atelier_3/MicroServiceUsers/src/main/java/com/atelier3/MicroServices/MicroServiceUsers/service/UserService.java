@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpMethod;
+import org.springframework.web.client.RestTemplate;
 
 import com.atelier3.MicroServices.MicroServiceUsers.mapper.MapperUser;
 import com.atelier3.MicroServices.MicroServiceUsers.model.User;
@@ -14,6 +17,14 @@ public class UserService {
 	
 	@Autowired
 	UserRepository uRepo;
+	
+	String URL_DISTRIBUTION = "http://microservice-cards/distribute";
+	
+	private final RestTemplate restTemplate;
+
+	public UserService(RestTemplateBuilder restTemplateBuilder) {
+		this.restTemplate = restTemplateBuilder.build();
+	}
 	
 	/**
 	 * Inscrit un utilisateur à la base de données
@@ -27,18 +38,39 @@ public class UserService {
 		
 		String username = userRegisterDTO.getUsername();
 		String password = userRegisterDTO.getPassword();
-		List<User> existant_users = uRepo.findByUsernameAndPassword(username, password)
+		List<User> existant_users = uRepo.findByUsernameAndPassword(username, password);
 		//TODO
 		if (existant_users.isEmpty()) {
 			User u = MapperUser.UserRegisterDTOtoUser(userRegisterDTO);
 			uRepo.save(u);
 			//TODO appel du service créant les cartes
+			this.distributeCards(u.getId());
 			return true;
 		}
 		else {
-			return false;	
+			return false;
 		}
 		
 	}
+
+	private void distributeCards(Integer id) {
+		String url = URL_DISTRIBUTION + "?userId=" + id;
+	    restTemplate.exchange(url, HttpMethod.GET, null, Void.class);
+	}
+
+	public User getUser(int id) {
+		Optional<User> u0pt = uRepo.findById(id);
+		if (u0pt.isPresent()) {
+			return u0pt.get();
+		}
+		else {
+			return null;
+		}
+	}
+	
+	public void updateUser(User u) {
+		uRepo.save(u);
+	}
+	
 
 }

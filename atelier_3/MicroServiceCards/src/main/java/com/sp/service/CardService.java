@@ -41,12 +41,11 @@ public class CardService {
 	}
 	
 	/**
-	 * Retourne 5 cartes aléatoires pour un nouvel utilisateur
-	 * @return cardList
+	 * Distribue 5 cartes aléatoires pour un nouvel utilisateur
+	 * @return
 	 */
-	public List<Card> getFiveFirstCards(int userid) {
+	public void distributeFiveFirstCards(int userid) {
 	    this.tcRepoInit();
-	    List<Card> cardList = new ArrayList<>();
 	    List<TemplateCard> allCards = (List<TemplateCard>) tcRepo.findAll();
 	    Random rand = new Random();
 	    Set<Integer> selectedIndexes = new HashSet<>();
@@ -57,12 +56,11 @@ public class CardService {
 	            TemplateCard tc = allCards.get(index);
 	            Card c = MapperCard.TemplateCardtoCard(tc);
 	            c.setUserid(userid);
-	            cardList.add(c);
 	            this.addToCardRepo(c);
 	        }
 	    }
-	    return cardList;
 	}
+
 	
 	/**
 	 * Ajoute la carte c dans le repo de cartes si elle n'y est pas déjà
