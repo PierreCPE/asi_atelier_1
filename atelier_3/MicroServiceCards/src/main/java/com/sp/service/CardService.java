@@ -1,6 +1,5 @@
 package com.sp.service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -80,14 +79,30 @@ public class CardService {
 		return cardRepository.findById(id);
 	}
 	
+	public List<Card> getInventoryByUserId(int userid) {
+		return cardRepository.findByUserid(userid);
+	}
+	
 
 
-//	public void updateCard(Card card) {
-//		Card cardDB = cardRepository.findById(card.getId());
-//		cardRepository.save(cardDB);
-//	}
-//	
-//	public void deleteCard(Card card) {
-//		cardRepository.delete(card);
-//	}
+	public void updateCard(Card card) {
+		Card existingCard = cardRepository.findById(card.getId());
+		existingCard.setAffinity(card.getAffinity());
+		existingCard.setAttack(card.getAttack());
+		existingCard.setDefence(card.getDefence());
+		existingCard.setDescription(card.getDescription());
+		existingCard.setEnergy(card.getEnergy());
+		existingCard.setFamily(card.getFamily());
+		existingCard.setHp(card.getHp());
+		existingCard.setId(card.getId());
+		existingCard.setImgUrl(card.getImgUrl());
+		existingCard.setName(card.getName());
+		existingCard.setPrix(card.getPrix());
+		existingCard.setUserid(card.getUserid());
+		cardRepository.save(existingCard);
+	}
+	
+	public void deleteCard(Card card) {
+		cardRepository.delete(card);
+	}
 }
