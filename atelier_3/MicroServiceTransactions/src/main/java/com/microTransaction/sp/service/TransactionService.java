@@ -20,7 +20,7 @@ public class TransactionService {
 	@Autowired
 	TransactionRepository tRepository;
 	
-	static final String URL_CARD = "http://localhost:8084/cards/{cardId}";
+	static final String URL_CARD = "http://microservice-cards:8080/cards/{cardId}";
 	static final String URL_USER = "http://localhost:8081/users/{userid}";
 	
 	private final RestTemplate restTemplate;
@@ -33,8 +33,7 @@ public class TransactionService {
 	 * @param transactionDTO
 	 * @return un booléen indiquant si l'achat a pû être effectué
 	 */
-	public String buyCard(TransactionDTO transactionDTO) {
-		String log = "";
+	public void addTransaction(TransactionDTO transactionDTO) {
 		int idAcheteur = transactionDTO.getIduser();
 		int idCard = transactionDTO.getIdcard();
 		
@@ -70,11 +69,9 @@ public class TransactionService {
 		}
 		else {
 			log = "Erreur sur l'acheteur";
-		}
-		
-		return log;
-					
+		}					
 	}
+
 		
 	/*
 	

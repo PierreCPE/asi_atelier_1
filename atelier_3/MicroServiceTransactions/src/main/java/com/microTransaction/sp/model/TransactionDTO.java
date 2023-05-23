@@ -1,7 +1,7 @@
 package com.microTransaction.sp.model;
 
 public class TransactionDTO{
-	private int iduser;
+	private int idbuyer;
 	private int idcard;
 	
 	
@@ -9,12 +9,12 @@ public class TransactionDTO{
 	
 	}
 	
-	public int getIduser() {
-		return iduser;
+	public int getIdbuyer() {
+		return idbuyer;
 	}
 	
-	public void setIduser(int iduser) {
-		this.iduser = iduser;
+	public void setIduser(int idbuyer) {
+		this.idbuyer = idbuyer;
 	}
 	public int getIdcard() {
 		return idcard;

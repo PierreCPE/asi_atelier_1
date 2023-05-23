@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
-  import com.microTransaction.sp.model.TransactionDTO;
+import com.microTransaction.sp.mapper.MapperTransaction;
+import com.microTransaction.sp.model.Transaction;
+import com.microTransaction.sp.model.TransactionDTO;
   import com.microTransaction.sp.service.TransactionService;
 
 @RestController
@@ -20,12 +21,17 @@ public class TransactionRestCrt {
 	
 	@Autowired
     TransactionService tservice;
-
-	@PostMapping(value="/buy")
-	public void buy(@RequestBody TransactionDTO transactionDTO) {
-		tservice.buyCard(transactionDTO);
-	}
 	
+	@PostMapping(value = { "/transactions"})
+    public void addTransaction(@RequestBody TransactionDTO transactiondto ) {
+		tservice.addTransaction(transactiondto);
+  	}
+	
+	/**
+	 * SERA GERE PAR MS CARD, AJOUTE SIMPLEMENT UNE CARTE A MARKET REPO
+	 * TRANSACTION AJOUTEE VIA LA METHODE CI DESSUS SEULEMENT QUAND LA CARTE EST BUY
+	 * @param transactionDTO
+	 */
 	@PostMapping(value="/sell")
 	public void sell(@RequestBody TransactionDTO transactionDTO) {
 		tservice.sellCard(transactionDTO);
