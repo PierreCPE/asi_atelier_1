@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +22,11 @@ public class CardCrt {
 	@Autowired
 	CardService cardService;
 	
-	@RequestMapping(value = { "/cards" }, method = RequestMethod.GET)
+	/**
+	 * Retourne la liste de toutes les cartes possédées
+	 * @return List<CardDTO>
+	 */
+	@GetMapping(value = { "/cards" })
 	public List<CardDTO> getCard() {
 		
 		List<CardDTO> cardDtoList = new ArrayList<CardDTO>();
@@ -37,7 +39,12 @@ public class CardCrt {
 		return cardDtoList;
 	}
 	
-	@RequestMapping(value = { "/cards/{cardId}" }, method = RequestMethod.GET)
+	/**
+	 * Retourne la carte d'id passé dans l'URL
+	 * @param cardId
+	 * @return CardDTO
+	 */
+	@GetMapping(value = { "/cards/{cardId}" })
 	public CardDTO getCardById(@PathVariable int cardId) {
 		Card card = cardService.findCardById(cardId);
 		CardDTO cardDto = new CardDTO(card.getId(), card.getUserid(), card.getPrix(), card.getName(),
@@ -46,6 +53,10 @@ public class CardCrt {
 		return cardDto;
 	}
 	
+	/**
+	 * Met à jour la carte passée dans la requête HTML
+	 * @param updatedCardDto
+	 */
 	@PutMapping("/cards")
     public void updateCard(@RequestBody CardDTO updatedCardDto) {
 		Card existingCard = cardService.findCardById(updatedCardDto.getId());
@@ -58,6 +69,10 @@ public class CardCrt {
 		}
     }
 	
+	/**
+	 * Supprime la carte passée dans la requête HTML
+	 * @param cardDTO
+	 */
 	@DeleteMapping("/cards")
 	public void deleteCard(@RequestBody CardDTO cardDTO) {
 		Card card = new Card(cardDTO.getId(), cardDTO.getUserid(), cardDTO.getPrix(), cardDTO.getName(),
@@ -66,11 +81,20 @@ public class CardCrt {
 		cardService.deleteCard(card);
 	}
 	
+	/**
+	 * Distribue aléatoirement 5 cartes à l'utilisateur passé en paramètre
+	 * @param userId
+	 */
 	@GetMapping(value = {"/distribute"})
 	public void distributeCards(@RequestParam("userId") int userId) {
 		cardService.distributeFiveFirstCards(userId);
 	}
 	
+	/**
+	 * Retourne la liste de toutes les cartes possédées par l'utilisateur passé dans l'URL
+	 * @param userId
+	 * @return List<CardDTO>
+	 */
 	@GetMapping(value = {"/inventory/{userId}"})
 	public List<CardDTO> getInventoryByUserId(@PathVariable int userId) {
 		List<CardDTO> cardDtoList = new ArrayList<CardDTO>();
