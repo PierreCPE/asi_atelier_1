@@ -9,5 +9,6 @@ import com.atelier3.MicroServices.MicroServiceUsers.model.User;
 public interface UserRepository extends CrudRepository<User, Integer> {
 	
 	List<User> findByUsernameAndPassword(String username, String password);
+	User findBySurnameAndPassword(String surname, String password);
 	
 }
