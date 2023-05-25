@@ -1,8 +1,8 @@
 package com.atelier3.MicroServices.MicroServiceUsers.mapper;
 
 import com.atelier3.MicroServices.MicroServiceUsers.model.User;
-import com.atelier3.MicroServices.MicroServiceUsers.model.UserDTO;
 import com.atelier3.MicroServices.MicroServiceUsers.model.UserRegisterDTO;
+import com.sp.model.UserDTO;
 
 public class MapperUser {
 
@@ -17,7 +17,6 @@ public class MapperUser {
 	
 	public static UserDTO userToDTO(User user) {
 	    UserDTO userDTO = new UserDTO();
-	    userDTO.setId(user.getId());
 	    userDTO.setUserName(user.getUsername());
 	    userDTO.setSurname(user.getSurname());
 	    userDTO.setSolde(user.getSolde());

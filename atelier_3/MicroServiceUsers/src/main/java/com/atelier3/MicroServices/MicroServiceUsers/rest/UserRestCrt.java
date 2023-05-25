@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.atelier3.MicroServices.MicroServiceUsers.mapper.MapperUser;
 import com.atelier3.MicroServices.MicroServiceUsers.model.User;
-import com.atelier3.MicroServices.MicroServiceUsers.model.UserDTO;
 import com.atelier3.MicroServices.MicroServiceUsers.model.UserRegisterDTO;
 import com.atelier3.MicroServices.MicroServiceUsers.service.UserService;
+import com.sp.model.UserDTO;
 
 
 
