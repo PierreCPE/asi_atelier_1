@@ -3,12 +3,12 @@ package com.atelier3.MicroServices.MicroServiceUsers.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.atelier3.MicroServices.MicroServiceUsers.mapper.MapperUser;
+import com.atelier3.MicroServices.MicroServiceUsers.model.ConnexionDTO;
 import com.atelier3.MicroServices.MicroServiceUsers.model.User;
 import com.atelier3.MicroServices.MicroServiceUsers.model.UserRegisterDTO;
 import com.atelier3.MicroServices.MicroServiceUsers.service.UserService;
@@ -23,9 +23,19 @@ public class UserRestCrt {
 	@Autowired
 	UserService uService;
 	
-	@RequestMapping(value = {"/register"}, method = RequestMethod.POST)
-	public void register(@RequestBody UserRegisterDTO userRegisterDTO) {
-		uService.addUser(userRegisterDTO);
+	@PostMapping(value = {"/register"})
+	public boolean register(@RequestBody UserRegisterDTO userRegisterDTO) {
+		return uService.addUser(userRegisterDTO);
+	}
+	
+	/**
+	 * Renvoie true si le surname et mdp renseignés correspondent à la BDD
+	 * @param connexiondto
+	 * @return boolean
+	 */
+	@PostMapping(value = {"/users"})
+	public int checklogin(@RequestBody ConnexionDTO connexiondto) {
+		return uService.check(connexiondto);
 	}
 	
 	@GetMapping(value = {"/user/{id}"})

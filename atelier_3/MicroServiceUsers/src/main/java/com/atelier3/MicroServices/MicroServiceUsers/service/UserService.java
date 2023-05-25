@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
 
 import com.atelier3.MicroServices.MicroServiceUsers.mapper.MapperUser;
+import com.atelier3.MicroServices.MicroServiceUsers.model.ConnexionDTO;
 import com.atelier3.MicroServices.MicroServiceUsers.model.User;
 import com.atelier3.MicroServices.MicroServiceUsers.model.UserRegisterDTO;
 import com.atelier3.MicroServices.MicroServiceUsers.repository.UserRepository;
@@ -32,25 +33,19 @@ public class UserService {
 	 * @param userRegisterDTO
 	 * @return true si l'utilisateur a pu être créer, false sinon
 	 */			
-	
-	
 	public boolean addUser(UserRegisterDTO userRegisterDTO) {
-		
 		String username = userRegisterDTO.getUsername();
 		String password = userRegisterDTO.getPassword();
 		List<User> existant_users = uRepo.findByUsernameAndPassword(username, password);
-		//TODO
 		if (existant_users.isEmpty()) {
 			User u = MapperUser.UserRegisterDTOtoUser(userRegisterDTO);
 			uRepo.save(u);
-			//TODO appel du service créant les cartes
 			this.distributeCards(u.getId());
 			return true;
 		}
 		else {
 			return false;
 		}
-		
 	}
 
 	private void distributeCards(Integer id) {
@@ -70,6 +65,17 @@ public class UserService {
 	
 	public void updateUser(User u) {
 		uRepo.save(u);
+	}
+
+	public int check(ConnexionDTO connexiondto) {
+		User u = uRepo.findBySurnameAndPassword(connexiondto.getSurname(), connexiondto.getPassword());
+		if (u == null) {
+			return -1;
+		}
+		else {
+			System.out.println("User trouvé");
+			return u.getId();
+		}
 	}
 	
 

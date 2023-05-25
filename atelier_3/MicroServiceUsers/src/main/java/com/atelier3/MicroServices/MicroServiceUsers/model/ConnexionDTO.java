@@ -1,4 +1,4 @@
-package com.sp.model;
+package com.atelier3.MicroServices.MicroServiceUsers.model;
 
 public class ConnexionDTO {
 
