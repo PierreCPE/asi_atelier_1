@@ -9,6 +9,7 @@ import com.sp.mapper.MapperCard;
 import com.sp.model.Card;
 import com.sp.model.TemplateCard;
 import com.sp.repository.CardRepository;
+import com.sp.repository.MarketRepository;
 import com.sp.repository.TemplateCardRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class CardService {
 	
 	@Autowired
 	TemplateCardRepository tcRepo;
+	
+	@Autowired
+	MarketRepository marketRepo;
 	
 	/**
 	 * Initialise le repo card template (provisoire)
@@ -104,5 +108,27 @@ public class CardService {
 	
 	public void deleteCard(Card card) {
 		cardRepository.delete(card);
+	}
+
+	/**
+	 * Ajoute la carte passée en paramètre au marché (MarketRepository) si l'utilisateur
+	 * possède la carte
+	 * @param card
+	 * @param userid
+	 */
+	public void sellCard(Card card, int userid) {
+		List<Card> inventory = cardRepository.findByUserid(userid);
+		if (inventory.contains(card)) {
+	        marketRepo.save(card);
+	    }
+	}
+	
+	/**
+	 * Retire la carte passée en paramètre du marché (appelée par le controlleur
+	 * si le propriétaire a changé)
+	 * @param updatedCard
+	 */
+	public void removeFromMarket(Card updatedCard) {
+		marketRepo.delete(updatedCard);
 	}
 }

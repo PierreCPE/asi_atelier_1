@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,17 +41,22 @@ public class CardCrt {
 	}
 	
 	/**
-	 * Retourne la carte d'id passé dans l'URL
+	 * Retourne la carte d'id passé dans l'URL ou null si elle n'existe pas
 	 * @param cardId
 	 * @return CardDTO
 	 */
 	@GetMapping(value = { "/cards/{cardId}" })
 	public CardDTO getCardById(@PathVariable int cardId) {
 		Card card = cardService.findCardById(cardId);
-		CardDTO cardDto = new CardDTO(card.getId(), card.getUserid(), card.getPrix(), card.getName(),
-				card.getDescription(), card.getImgUrl(), card.getFamily(), card.getAffinity(), card.getHp(),
-				card.getEnergy(), card.getAttack(), card.getDefence());
-		return cardDto;
+		if (card == null) {
+			return null;
+		}
+		else {
+			CardDTO cardDto = new CardDTO(card.getId(), card.getUserid(), card.getPrix(), card.getName(),
+					card.getDescription(), card.getImgUrl(), card.getFamily(), card.getAffinity(), card.getHp(),
+					card.getEnergy(), card.getAttack(), card.getDefence());
+			return cardDto;
+		}
 	}
 	
 	/**
@@ -66,6 +72,9 @@ public class CardCrt {
 	                updatedCardDto.getFamily(), updatedCardDto.getAffinity(), updatedCardDto.getHp(),
 	                updatedCardDto.getEnergy(), updatedCardDto.getAttack(), updatedCardDto.getDefence());
 	        cardService.updateCard(updatedCard);
+	        if (existingCard.getUserid() != updatedCard.getUserid()) {
+	        	cardService.removeFromMarket(updatedCard);
+	        }
 		}
     }
 	
@@ -105,5 +114,18 @@ public class CardCrt {
 		}
 		
 		return cardDtoList;
+	}
+	
+	/**
+	 * Ajoute la carte passée dans le body au marché pour que quelqu'un puisse l'acheter
+	 * @param cardDTO
+	 * @param userid
+	 */
+	@PostMapping(value="/sell")
+	public void sell(@RequestBody CardDTO cardDTO, int userid) {
+		Card card = new Card(cardDTO.getId(), cardDTO.getUserid(), cardDTO.getPrix(), cardDTO.getName(),
+				cardDTO.getDescription(), cardDTO.getImgUrl(), cardDTO.getFamily(), cardDTO.getAffinity(), cardDTO.getHp(),
+				cardDTO.getEnergy(), cardDTO.getAttack(), cardDTO.getDefence());
+		cardService.sellCard(card, userid);
 	}
 }

@@ -2,9 +2,10 @@ package com.sp.repository;
 
 
 import org.springframework.data.repository.CrudRepository;
-import com.sp.model.TemplateCard;
 
-public interface MarketRepository extends CrudRepository<TemplateCard, Integer> {
+import com.sp.model.Card;
 
-	public TemplateCard findById(int id);
+public interface MarketRepository extends CrudRepository<Card, Integer> {
+
+	public Card findById(int id);
 }

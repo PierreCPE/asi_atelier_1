@@ -53,13 +53,6 @@ public class CardDTO {
 	public void setPrix(int prix) {
 		this.prix = prix;
 	}
-
-	public int getUserid() {
-		return userid;
-	}
-	public void setUserid(int userid) {
-		this.userid = userid;
-	}
 	
 	public String getName() {
 		return name;

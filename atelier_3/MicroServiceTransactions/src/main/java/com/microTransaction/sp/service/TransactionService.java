@@ -21,93 +21,59 @@ public class TransactionService {
 	TransactionRepository tRepository;
 	
 	static final String URL_CARD = "http://microservice-cards:8080/cards/{cardId}";
+	static final String URL_CARDS = "http://microservice-cards:8080/cards";
 	static final String URL_USER = "http://localhost:8081/users/{userid}";
+	static final String URL_USERS = "http://localhost:8081/users";
 	
 	private final RestTemplate restTemplate;
 
 	public TransactionService(RestTemplateBuilder restTemplateBuilder) {
 		this.restTemplate = restTemplateBuilder.build();
 	}
+	
 	/**
 	 * Effectue l'achat d'une carte par un utilisateur
 	 * @param transactionDTO
-	 * @return un booléen indiquant si l'achat a pû être effectué
 	 */
 	public void addTransaction(TransactionDTO transactionDTO) {
-		int idAcheteur = transactionDTO.getIduser();
+		int idAcheteur = transactionDTO.getIdbuyer();
 		int idCard = transactionDTO.getIdcard();
 		
 		// Contacte service CARD avec un param idCard pour avoir la CardDTO et en extraire le prix
-		String URL_forPrice = URL_CARD.replace("{cardId}", Integer.toString(idCard));
-		CardDTO card = this.restTemplate.getForObject(URL_forPrice, CardDTO.class);
-		int price = card.getPrix();
-		int idVendeur = card.getUserId();
+		String URL_card = URL_CARD.replace("{cardId}", Integer.toString(idCard));
+		CardDTO cardDTO = this.restTemplate.getForObject(URL_card, CardDTO.class);
 		
 		// Contacte service USER avec un param idAcheteur pour avoir le UserDTO et en extraire le solde
-		String URL_forSold = URL_USER.replace("{userid}", Integer.toString(idAcheteur));
-		UserDTO user = this.restTemplate.getForObject(URL_forSold, UserDTO.class);
-		int soldAcheteur = user.getSolde();
+		String URL_buyer = URL_USER.replace("{userid}", Integer.toString(idAcheteur));
+		UserDTO userdto = this.restTemplate.getForObject(URL_buyer, UserDTO.class); //On suppose que l'user existe bel et bien
 		
-		if (soldAcheteur >= 0) { // Vérifie que l'acheteur existe
+		if ((userdto != null) && (cardDTO != null)) { // Vérifie que l'acheteur et la carte existent
+			int soldAcheteur = userdto.getSolde();
+			int price = cardDTO.getPrix();
+			int idVendeur = cardDTO.getUserId();
 			if (price >= 0) {
-				if (soldAcheteur >= price) { // Vérifie que l'acheteur possède l'argent necessaire
-					log = "Achat effectué";
-					//TODO modifier le proprietaire
-					//TODO modifier le solde de l'acheteur
-					//TODO modifier le solde du vendeur
-					//TODO retirer du market
+				if (soldAcheteur >= price) {
+					cardDTO.setUserId(userdto.getId());
+					userdto.setSolde(soldAcheteur - price);
+					String URL_seller = URL_USER.replace("{userid}", Integer.toString(idVendeur));
+					UserDTO userdtoVendeur = this.restTemplate.getForObject(URL_seller, UserDTO.class);
+					userdtoVendeur.setSolde(userdtoVendeur.getSolde() + price);
+					this.restTemplate.put(URL_CARDS, cardDTO);
+					this.restTemplate.put(URL_USERS, userdtoVendeur);
+					this.restTemplate.put(URL_USERS, userdto);
 					Transaction t = MapperTransaction.TransactionDTOtoTransaction(transactionDTO,idVendeur,price);
 					tRepository.save(t);
 				}
 				else {
-					log = "Fond insuffisant";
+					System.out.println("Fonds insuffisants");
 				}
 			}
 			else {
-			log = " Carte pas à vendre";
+				System.out.println("Carte pas à vendre");
 			}
 		}
 		else {
-			log = "Erreur sur l'acheteur";
+			System.out.println("Acheteur ou carte inexistante");
 		}					
 	}
-
-		
-	/*
-	
-	
-	public String sellCard(TransactionDTO transactionDTO) {
-		
-		String log;
-		Optional<Transaction> tOpt = tRepository.findById(transactionDTO.getIdcard());
-		Card c = cservice.getCard(transactionDTO.getIdcard());
-		User u = uservice.getUser(transactionDTO.getIduser()); 
-		int prix;
-		
-		if (tOpt.isEmpty() && !(c == null) && !(u == null)) {
-			prix = c.getPrix();
-			if (iservice.removeCardFromInv(c, u)) {
-				Transaction transaction = MapperTransaction.TransactionDTOtoTransaction(transactionDTO);
-				transaction.setPrice(prix);
-				tRepository.save(transaction);
-				log = "Mise en vente effectuée";
-			} else {
-				log = "Cette carte n'appaartient pas à cet  utilisateur";
-			}
-		} else {
-			log = "Carte ou utilisateur introuvable";
-		}
-	    return log;
-	}
-
-	public List<TransactionDTO> getTransactions() {
-		List<TransactionDTO> res = new ArrayList<TransactionDTO>();
-	    Iterable<Transaction> list = tRepository.findAll();
-	    for (Transaction transaction:list) {
-	    	res.add(MapperTransaction.TransactiontoTransactionDTO(transaction));
-	    }
-	    return res;
-	}
-	*/
-	
 }
