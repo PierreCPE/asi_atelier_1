@@ -68,13 +68,13 @@ public class UserService {
 	}
 
 	public int check(ConnexionDTO connexiondto) {
-		User u = uRepo.findBySurnameAndPassword(connexiondto.getSurname(), connexiondto.getPassword());
-		if (u == null) {
+		List<User> uList = uRepo.findBySurnameAndPassword(connexiondto.getSurname(), connexiondto.getPassword());
+		if (uList.isEmpty()) {
 			return -1;
 		}
 		else {
 			System.out.println("User trouvé");
-			return u.getId();
+			return uList.get(0).getId();
 		}
 	}
 	
