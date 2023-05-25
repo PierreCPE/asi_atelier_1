@@ -17,7 +17,7 @@ form.addEventListener('submit', (event) => {
             let intValue = parseInt(result); // Conversion de la réponse en entier
             if (!isNaN(intValue) && intValue !== -1) {
                 document.cookie = `myNumber=${intValue}`; // Stockage de l'entier dans un cookie
-                window.location.assign("http://localhost:80/users");
+                window.location.assign("http://localhost:80/menu");
             } else {
                 // Gérer le cas où la réponse du serveur n'est pas un entier valide
                 console.error("La réponse du serveur n'est pas un entier valide.");
