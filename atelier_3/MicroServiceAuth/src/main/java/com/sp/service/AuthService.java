@@ -11,12 +11,13 @@ import org.springframework.http.HttpEntity;
 
 
 import com.sp.model.ConnexionDTO;
+import com.sp.model.UserRegisterDTO;
 
 @Service
 public class AuthService { // voir le site pour rendre en json le cookie
 
 	private final RestTemplate restTemplate;
-	static final String URL_USERS = "http://localhost:8081/users";
+	static final String URL_USERS = "http://localhost:8081";
 	
 //	public userDTO checkLogin(ConnexionDTO coDTO) {
 //		return userDTO;
@@ -29,17 +30,35 @@ public class AuthService { // voir le site pour rendre en json le cookie
 
 	public int checklogin(ConnexionDTO connexiondto) {
 		ResponseEntity<Integer> response = restTemplate.exchange(
-		        URL_USERS,
+		        URL_USERS + "/users",
 		        HttpMethod.POST,
 		        new HttpEntity<>(connexiondto),
 		        Integer.class
 		    );
 		    
-		    if (response.getStatusCode() == HttpStatus.OK) {
-		        return response.getBody();
-		    } else {
-		        return -1;
-		    }
+	    if (response.getStatusCode() == HttpStatus.OK) {
+	        return response.getBody();
+	    }
+	    else {
+	        return -1;
+	    }
+	}
+
+	public boolean register(UserRegisterDTO userRegisterDTO) {
+		ResponseEntity<Boolean> response = restTemplate.exchange(
+		        URL_USERS + "/register",
+		        HttpMethod.POST,
+		        new HttpEntity<>(userRegisterDTO),
+		        Boolean.class
+		    );
+		    
+	    if (response.getStatusCode() == HttpStatus.OK) {
+	        return response.getBody();
+	    }
+	    else {
+	    	System.out.println("Echec requete register");
+	        return false;
+	    }
 	}
 	
 }

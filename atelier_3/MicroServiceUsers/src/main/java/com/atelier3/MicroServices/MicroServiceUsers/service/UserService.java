@@ -33,25 +33,19 @@ public class UserService {
 	 * @param userRegisterDTO
 	 * @return true si l'utilisateur a pu être créer, false sinon
 	 */			
-	
-	
 	public boolean addUser(UserRegisterDTO userRegisterDTO) {
-		
 		String username = userRegisterDTO.getUsername();
 		String password = userRegisterDTO.getPassword();
 		List<User> existant_users = uRepo.findByUsernameAndPassword(username, password);
-		//TODO
 		if (existant_users.isEmpty()) {
 			User u = MapperUser.UserRegisterDTOtoUser(userRegisterDTO);
 			uRepo.save(u);
-			//TODO appel du service créant les cartes
 			this.distributeCards(u.getId());
 			return true;
 		}
 		else {
 			return false;
 		}
-		
 	}
 
 	private void distributeCards(Integer id) {

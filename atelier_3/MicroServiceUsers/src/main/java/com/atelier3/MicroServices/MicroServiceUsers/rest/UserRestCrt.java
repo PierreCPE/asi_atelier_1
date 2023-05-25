@@ -24,8 +24,8 @@ public class UserRestCrt {
 	UserService uService;
 	
 	@PostMapping(value = {"/register"})
-	public void register(@RequestBody UserRegisterDTO userRegisterDTO) {
-		uService.addUser(userRegisterDTO);
+	public boolean register(@RequestBody UserRegisterDTO userRegisterDTO) {
+		return uService.addUser(userRegisterDTO);
 	}
 	
 	/**
