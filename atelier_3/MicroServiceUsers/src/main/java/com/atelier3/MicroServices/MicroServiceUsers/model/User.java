@@ -6,6 +6,8 @@ import javax.persistence.Id;
 
 @Entity
 public class User  {
+
+
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -15,8 +17,17 @@ public class User  {
 	private int solde;
 
 	public User() {	
+		
 	}
 
+	public User(Integer id, String username, String surname, String password, int solde) {
+		this.id = id;
+		this.username = username;
+		this.surname = surname;
+		this.password = password;
+		this.solde = solde;
+	}
+	
   // GETTER AND SETTER
 	
 	public Integer getId() {

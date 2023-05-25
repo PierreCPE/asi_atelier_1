@@ -58,7 +58,6 @@ public class UserRestCrt {
     public void updateCard(@RequestBody UserDTO updatedUserDTO) {
 		User existingUser = uService.getUser(updatedUserDTO.getId());
 		if (existingUser != null) {
-			existingUser.setId(updatedUserDTO.getId());
 			existingUser.setUsername(updatedUserDTO.getUserName());
 			existingUser.setSurname(updatedUserDTO.getSurname());
 			existingUser.setSolde(updatedUserDTO.getSolde());
