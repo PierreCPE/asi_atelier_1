@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.atelier3.MicroServices.MicroServiceUsers.mapper.MapperUser;
 import com.atelier3.MicroServices.MicroServiceUsers.model.ConnexionDTO;
-import com.atelier3.MicroServices.MicroServiceUsers.model.User;
+import com.atelier3.MicroServices.MicroServiceUsers.model.Users;
 import com.atelier3.MicroServices.MicroServiceUsers.model.UserRegisterDTO;
-import com.atelier3.MicroServices.MicroServiceUsers.service.UserService;
+import com.atelier3.MicroServices.MicroServiceUsers.service.UsersService;
 import com.sp.model.UserDTO;
 
 
@@ -21,7 +21,7 @@ import com.sp.model.UserDTO;
 public class UserRestCrt {
 
 	@Autowired
-	UserService uService;
+	UsersService uService;
 	
 	@PostMapping(value = {"/register"})
 	public boolean register(@RequestBody UserRegisterDTO userRegisterDTO) {
@@ -40,7 +40,7 @@ public class UserRestCrt {
 	
 	@GetMapping(value = {"/user/{id}"})
 	public UserDTO getUser(@PathVariable int id) {
-		User u = uService.getUser(id);
+		Users u = uService.getUser(id);
 		if (u == null) {
 			return null;
 		}
@@ -56,7 +56,7 @@ public class UserRestCrt {
 	 */
 	@PutMapping("/users")
     public void updateCard(@RequestBody UserDTO updatedUserDTO) {
-		User existingUser = uService.getUser(updatedUserDTO.getId());
+		Users existingUser = uService.getUser(updatedUserDTO.getId());
 		if (existingUser != null) {
 			existingUser.setUsername(updatedUserDTO.getUserName());
 			existingUser.setSurname(updatedUserDTO.getSurname());
