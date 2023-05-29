@@ -13,3 +13,4 @@ Elements réalisés :
 Elements non réalisés :
 - Fonctionnalités supplémentaires de l'application
 - Tout le coté client n'est pas terminé (notamment le javascript)
+- Tests fonctionnels
