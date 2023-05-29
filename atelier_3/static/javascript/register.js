@@ -12,7 +12,7 @@ form.addEventListener('submit', (event) => {
         json['password'] = form.elements['mdp'].value;
 
         $.ajax({
-            url: "http://localhost:80/welcome/register",
+            url: "http://localhost:80/register",
             contentType: "application/json",
             dataType: 'json',
             data: JSON.stringify(json),
@@ -20,7 +20,7 @@ form.addEventListener('submit', (event) => {
             complete: function(result) {
                 console.log(result);
                 if (result.responseJSON === true) {
-                    window.location.assign("http://localhost:80/welcome/login");
+                    window.location.assign("http://localhost:80/login");
                 }
             }
         });

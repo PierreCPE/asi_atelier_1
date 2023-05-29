@@ -6,6 +6,7 @@ services:
     container_name: nginxrp
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./static:/usr/share/nginx
     ports:
       - 80:80
     depends_on:
@@ -14,44 +15,52 @@ services:
       - microservice-cards
       - microservice-transactions
     networks:
-      - internal-network
+      #- internal-network
       - public-network
 
   microservice-auth:
     build:
         context: ./MicroServiceAuth
         dockerfile: Dockerfile
+    container_name: microservice-auth
     ports:
-      - 8083:8080
+      - 8083:8083
     networks:
-      - internal-network
+      #- internal-network
+      - public-network
 
   microservice-users:
     build:
         context: ./MicroServiceUsers
         dockerfile: Dockerfile
+    container_name: microservice-users
     ports:
-      - 8081:8080
+      - 8081:8081
     networks:
-      - internal-network
+      #- internal-network
+      - public-network
 
   microservice-cards:
     build:
         context: ./MicroServiceCards
         dockerfile: Dockerfile
+    container_name: microservice-cards
     ports:
-      - 8084:8080
+      - 8084:8084
     networks:
-      - internal-network
+      #- internal-network
+      - public-network
 
   microservice-transactions:
     build:
         context: ./MicroServiceTransactions
         dockerfile: Dockerfile
+    container_name: microservice-transactions
     ports:
-      - 8082:8080
+      - 8082:8082
     networks:
-      - internal-network
+      #- internal-network
+      - public-network
 
 networks:
   internal-network:
