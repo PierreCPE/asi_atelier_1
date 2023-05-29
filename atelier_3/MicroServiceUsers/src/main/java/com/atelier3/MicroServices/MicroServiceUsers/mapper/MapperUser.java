@@ -2,7 +2,7 @@ package com.atelier3.MicroServices.MicroServiceUsers.mapper;
 
 import com.atelier3.MicroServices.MicroServiceUsers.model.User;
 import com.atelier3.MicroServices.MicroServiceUsers.model.UserRegisterDTO;
-import com.sp.model.UserDTO;
+import com.atelier3.MicroServices.MicroServiceUsers.model.UserDTO;
 
 public class MapperUser {
 

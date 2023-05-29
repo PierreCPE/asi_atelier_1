@@ -12,7 +12,7 @@ import com.atelier3.MicroServices.MicroServiceUsers.model.ConnexionDTO;
 import com.atelier3.MicroServices.MicroServiceUsers.model.User;
 import com.atelier3.MicroServices.MicroServiceUsers.model.UserRegisterDTO;
 import com.atelier3.MicroServices.MicroServiceUsers.service.UserService;
-import com.sp.model.UserDTO;
+import com.atelier3.MicroServices.MicroServiceUsers.model.UserDTO;
 
 
 

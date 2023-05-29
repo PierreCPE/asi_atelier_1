@@ -3,7 +3,7 @@ function checkCookie() {
     var myNumber = getCookie("myNumber");
     if (myNumber !== "") {
         // L'utilisateur est connecté et le cookie "myNumber" est initialisé
-        window.location.href = "menu.html";
+        window.location.href = "cardSell.html";
     } else {
         // L'utilisateur n'est pas connecté ou le cookie "myNumber" n'est pas initialisé
         window.location.href = "login.html";
@@ -28,8 +28,3 @@ function getCookie(name) {
 
 // Appeler la fonction de vérification du cookie lorsque la page est chargée
 window.onload = checkCookie;
-
-
-document.getElementById('buyButton').onclick = function() { window.location.assign("http://localhost:80/cardBuy"); };
-document.getElementById('sellButton').onclick = function() { window.location.assign("http://localhost:80/cardSell"); };
-document.getElementById('playButton').onclick = function() { window.location.assign("http://localhost:80/menu"); };
