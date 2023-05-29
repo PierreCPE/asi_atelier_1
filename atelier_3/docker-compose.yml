@@ -15,54 +15,51 @@ services:
       - microservice-cards
       - microservice-transactions
     networks:
-      #- internal-network
       - public-network
 
   microservice-auth:
     build:
-        context: ./MicroServiceAuth
-        dockerfile: Dockerfile
-    container_name: microservice-auth
+      context: ./MicroServiceAuth
+      dockerfile: Dockerfile
     ports:
       - 8083:8083
     networks:
-      #- internal-network
-      - public-network
+      public-network:
+        aliases:
+          - microservice-auth
 
   microservice-users:
     build:
-        context: ./MicroServiceUsers
-        dockerfile: Dockerfile
-    container_name: microservice-users
+      context: ./MicroServiceUsers
+      dockerfile: Dockerfile
     ports:
       - 8081:8081
     networks:
-      #- internal-network
-      - public-network
+      public-network:
+        aliases:
+          - microservice-users
 
   microservice-cards:
     build:
-        context: ./MicroServiceCards
-        dockerfile: Dockerfile
-    container_name: microservice-cards
+      context: ./MicroServiceCards
+      dockerfile: Dockerfile
     ports:
       - 8084:8084
     networks:
-      #- internal-network
-      - public-network
+      public-network:
+        aliases:
+          - microservice-cards
 
   microservice-transactions:
     build:
-        context: ./MicroServiceTransactions
-        dockerfile: Dockerfile
-    container_name: microservice-transactions
+      context: ./MicroServiceTransactions
+      dockerfile: Dockerfile
     ports:
       - 8082:8082
     networks:
-      #- internal-network
-      - public-network
+      public-network:
+        aliases:
+          - microservice-transactions
 
 networks:
-  internal-network:
-    internal: true
   public-network:
