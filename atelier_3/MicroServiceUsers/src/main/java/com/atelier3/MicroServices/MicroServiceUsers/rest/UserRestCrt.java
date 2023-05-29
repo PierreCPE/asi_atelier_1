@@ -11,13 +11,8 @@ import com.atelier3.MicroServices.MicroServiceUsers.mapper.MapperUser;
 import com.atelier3.MicroServices.MicroServiceUsers.model.ConnexionDTO;
 import com.atelier3.MicroServices.MicroServiceUsers.model.Users;
 import com.atelier3.MicroServices.MicroServiceUsers.model.UserRegisterDTO;
-<<<<<<< HEAD
-import com.atelier3.MicroServices.MicroServiceUsers.service.UserService;
 import com.atelier3.MicroServices.MicroServiceUsers.model.UserDTO;
-=======
 import com.atelier3.MicroServices.MicroServiceUsers.service.UsersService;
-import com.sp.model.UserDTO;
->>>>>>> a6e8827fd6361153b8257da61e24afa2086e96fe
 
 
 
