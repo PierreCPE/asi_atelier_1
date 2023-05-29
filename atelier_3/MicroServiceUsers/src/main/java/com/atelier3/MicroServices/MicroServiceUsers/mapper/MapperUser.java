@@ -6,7 +6,7 @@ import com.sp.model.UserDTO;
 
 public class MapperUser {
 
-	public static Users UserRegisterDTOtoUser(UserRegisterDTO userRegisterDTO) {
+	public static Users userRegisterDTOtoUser(UserRegisterDTO userRegisterDTO) {
 		Users user = new Users();
 		user.setSurname(userRegisterDTO.getSurname());
 		user.setUsername(userRegisterDTO.getUsername());

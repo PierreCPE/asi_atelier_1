@@ -19,7 +19,6 @@ public class UsersService {
 	
 	@Autowired
 	UsersRepository uRepo;
-
 	
 	/**
 	 * Inscrit un utilisateur à la base de données
@@ -32,8 +31,8 @@ public class UsersService {
 		String password = userRegisterDTO.getPassword();
 		List<Users> existant_users = uRepo.findByUsernameAndPassword(username, password);
 		if (existant_users.isEmpty()) {
-			Users u = MapperUser.UserRegisterDTOtoUser(userRegisterDTO);
-			uRepo.save(u);
+			Users u = MapperUser.userRegisterDTOtoUser(userRegisterDTO);
+			u = uRepo.save(u);
 			this.distributeCards(u.getId());
 			return true;
 		}
@@ -42,7 +41,7 @@ public class UsersService {
 		}
 	}
 
-	private void distributeCards(Integer id) {
+	void distributeCards(Integer id) {
 		RestTemplate restTemplate = new RestTemplate();
 		String URL_DISTRIBUTION = "http://microservice-cards/distribute";
 		String url = URL_DISTRIBUTION + "?userId=" + id;

@@ -35,8 +35,9 @@ public class UserRepositoryTest {
 	
 	@Test
 	public void saveUser() {
-		urepo.save(new Users(1, "testun", "testsn", "testPwd", 1000));
-		assertTrue(true);
+		Users u = urepo.save(new Users(1, "testun", "testsn", "testPwd", 1000));
+		assertTrue(u.getId() == 1);
+		assertTrue(u.getSolde() == 1000);
 	}
 
 	@Test
