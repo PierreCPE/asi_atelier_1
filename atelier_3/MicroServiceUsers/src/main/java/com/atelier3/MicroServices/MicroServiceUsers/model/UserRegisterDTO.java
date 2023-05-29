@@ -15,6 +15,15 @@ public class UserRegisterDTO {
 	public String getPassword() {
 		return password;
 	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	
 	
 }

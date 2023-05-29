@@ -13,20 +13,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.atelier3.MicroServices.MicroServiceUsers.model.User;
+import com.atelier3.MicroServices.MicroServiceUsers.model.Users;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 public class UserRepositoryTest {
 	
 	@Autowired
-	UserRepository urepo;
+	UsersRepository urepo;
 	
 	@BeforeEach
 	public void setUp() {
-		User user = new User();
-		System.out.println(user);
-		//urepo.save(new User(1, "jdoe", "jdoe","jdoepwd", 5000));
+		urepo.save(new Users(1, "jdoe", "jdoe","jdoepwd", 5000));
 	}
 
 	@AfterEach
@@ -37,17 +35,16 @@ public class UserRepositoryTest {
 	
 	@Test
 	public void saveUser() {
-		User user = new User();
-		System.out.println(user);
-		//urepo.save(new User(1, "testun", "testsn", "testPwd", 1000));
-		//assertTrue(true);
+		Users u = urepo.save(new Users(1, "testun", "testsn", "testPwd", 1000));
+		assertTrue(u.getId() == 1);
+		assertTrue(u.getSolde() == 1000);
 	}
 
 	@Test
 	public void saveAndGetHero() {
 		urepo.deleteAll();
-		urepo.save(new User(2, "testun2", "testsn2", "testPwd2", 1000));
-		List<User> userList = new ArrayList<>();
+		urepo.save(new Users(2, "testun2", "testsn2", "testPwd2", 1000));
+		List<Users> userList = new ArrayList<>();
 		urepo.findAll().forEach(userList::add);
 		assertTrue(userList.size() == 1);
 		assertTrue(userList.get(0).getUsername().equals("testun2"));
@@ -58,7 +55,7 @@ public class UserRepositoryTest {
 
 	@Test
 	public void getHero() {
-		List<User> userList = urepo.findByUsernameAndPassword("jdoe", "jdoepwd");
+		List<Users> userList = urepo.findByUsernameAndPassword("jdoe", "jdoepwd");
 		assertTrue(userList.size() == 1);
 		assertTrue(userList.get(0).getUsername().equals("jdoe"));
 		assertTrue(userList.get(0).getSurname().equals("jdoe"));
@@ -69,13 +66,14 @@ public class UserRepositoryTest {
 
 	@Test
 	public void findByName() {
-		urepo.save(new User(2, "testu1", "testsn1", "testPwd1", 1000));
-		urepo.save(new User(2, "testun2", "testsn2", "testPwd2", 1000));
-		urepo.save(new User(2, "testun2", "testsn2", "testPwd2", 1000));
-		urepo.save(new User(2, "testun2", "testsn2", "testPwd2", 1000));
-		List<User> heroList = new ArrayList<>();
-		urepo.findByUsernameAndPassword("testun2", "testPwd2").forEach(heroList::add);
-		assertTrue(heroList.size() == 3);
+		urepo.save(new Users(2, "testu1", "testsn1", "testPwd1", 1000));
+		urepo.save(new Users(3, "testun2", "testsn2", "testPwd2", 1000));
+		urepo.save(new Users(4, "testun2", "testsn2", "testPwd2", 1000));
+		urepo.save(new Users(5, "testun2", "testsn2", "testPwd2", 1000));
+		List<Users> userList = new ArrayList<>();
+		userList = urepo.findByUsernameAndPassword("testun2", "testPwd2");
+		System.out.println(userList);
+		assertTrue(userList.size() == 3);
 	}
 
 	

@@ -29,7 +29,7 @@ public class UserTest {
 
 	@AfterEach
 	public void tearDown() {
-		System.out.println("[AFTER TEST] -- CLEAN hero list");
+		System.out.println("[AFTER TEST] -- CLEAN user list");
 		stringList = null;
 		intList = null;
 	}
@@ -40,7 +40,7 @@ public class UserTest {
 			for(String msg2:stringList) {
 				for(String msg3:stringList) {
 					for(Integer msg4:intList) {
-						User u=new User(msg4, msg, msg2, msg3, msg4);
+						Users u=new Users(msg4, msg, msg2, msg3, msg4);
 						System.out.println("msg:"+msg+", msg2:"+msg2+", msg3:"+msg3+", msg4:"+msg4);
 						assertTrue(u.getId().intValue() == msg4.intValue());
 						assertTrue(u.getUsername() == msg);
@@ -52,6 +52,14 @@ public class UserTest {
 			}
 		}
 
+	}
+
+	@Test
+	public void displayHero() {
+		Users u=new Users(1,"jdoe", "jdoe", "jdoepwd", 1000);
+		String expectedResult="User [id=1, username=jdoe, surname=jdoe, password=jdoepwd, solde=1000]";
+		assertTrue(u.toString().equals(expectedResult));
+		
 	}
 
 

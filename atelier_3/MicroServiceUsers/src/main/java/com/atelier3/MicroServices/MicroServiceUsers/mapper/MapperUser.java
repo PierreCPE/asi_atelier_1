@@ -1,13 +1,13 @@
 package com.atelier3.MicroServices.MicroServiceUsers.mapper;
 
-import com.atelier3.MicroServices.MicroServiceUsers.model.User;
+import com.atelier3.MicroServices.MicroServiceUsers.model.Users;
 import com.atelier3.MicroServices.MicroServiceUsers.model.UserRegisterDTO;
 import com.atelier3.MicroServices.MicroServiceUsers.model.UserDTO;
 
 public class MapperUser {
 
-	public static User UserRegisterDTOtoUser(UserRegisterDTO userRegisterDTO) {
-		User user = new User();
+	public static Users userRegisterDTOtoUser(UserRegisterDTO userRegisterDTO) {
+		Users user = new Users();
 		user.setSurname(userRegisterDTO.getSurname());
 		user.setUsername(userRegisterDTO.getUsername());
 		user.setPassword(userRegisterDTO.getPassword());
@@ -15,7 +15,7 @@ public class MapperUser {
 		return user;
 	}
 	
-	public static UserDTO userToDTO(User user) {
+	public static UserDTO userToDTO(Users user) {
 	    UserDTO userDTO = new UserDTO();
 	    userDTO.setUserName(user.getUsername());
 	    userDTO.setSurname(user.getSurname());
@@ -23,8 +23,8 @@ public class MapperUser {
 	    return userDTO;
 	}
 	
-	public static User userDTOToUser(UserDTO userDTO) {
-	    User user = new User();
+	public static Users userDTOToUser(UserDTO userDTO) {
+	    Users user = new Users();
 	    user.setId(userDTO.getId());
 	    user.setUsername(userDTO.getUserName());
 	    user.setSurname(userDTO.getSurname());

@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class User  {
+public class Users  {
 
 
 	@Id
@@ -16,11 +16,11 @@ public class User  {
 	private String password;
 	private int solde;
 
-	public User() {	
+	public Users() {	
 		
 	}
 
-	public User(Integer id, String username, String surname, String password, int solde) {
+	public Users(Integer id, String username, String surname, String password, int solde) {
 		this.id = id;
 		this.username = username;
 		this.surname = surname;
@@ -79,7 +79,7 @@ public class User  {
 	
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", userName=" + username + ", surname=" + surname + ", password=" + password
+		return "User [id=" + id + ", username=" + username + ", surname=" + surname + ", password=" + password
 				+ ", solde=" + solde + "]";
 	}
 	
